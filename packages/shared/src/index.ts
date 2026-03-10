@@ -7,7 +7,12 @@
  */
 
 /**
- * User identity interface for user identification.
+ * Interface: UserIdentity
+ * Description: Shared identity fields reused by app-level and database-level user types.
+ * Properties:
+ * - id: Unique identifier for the user.
+ * - username: Display name or handle chosen for the user.
+ * - email: Primary email address used for authentication and contact.
  */
 interface UserIdentity {
   id: string;
@@ -16,14 +21,27 @@ interface UserIdentity {
 }
 
 /**
- * App-level user shape used after database fields are mapped
+ * Interface: User
+ * Description: App-level user shape returned by backend endpoints after database fields are mapped to camelCase.
+ * Properties:
+ * - id: Unique identifier for the user.
+ * - username: Display name used by the application UI.
+ * - email: Email address associated with the user account.
+ * - createdAt: ISO timestamp for when the user account was created.
  */
 export interface User extends UserIdentity {
   createdAt: string;
 }
 
 /**
- * Database row shape for the public.users table and Supabase responses.
+ * Interface: UserProfileRow
+ * Description: Database row shape for the `public.users` table returned by Supabase queries.
+ * Properties:
+ * - id: UUID linked directly to `auth.users.id`.
+ * - username: Username stored in the application profile table.
+ * - email: Email copied into the profile table for app queries.
+ * - created_at: ISO timestamp for when the profile row was created.
+ * - updated_at: ISO timestamp for the most recent profile update.
  */
 export interface UserProfileRow extends UserIdentity {
   created_at: string;
@@ -31,19 +49,32 @@ export interface UserProfileRow extends UserIdentity {
 }
 
 /**
- * Database insert payload for creating or syncing a public.users record.
+ * Type: UserProfileInsert
+ * Description: Payload used when inserting or syncing a `public.users` profile record.
+ * Properties:
+ * - id: UUID linked to the authenticated Supabase user.
+ * - username: Username to persist in the profile table.
+ * - email: Email to persist in the profile table.
  */
 export type UserProfileInsert = UserIdentity;
 
 /**
- * Database update payload for partial updates to the public.users record.
+ * Type: UserProfileUpdate
+ * Description: Partial update payload for modifying selected fields in the `public.users` table.
+ * Properties:
+ * - username: Optional updated username.
+ * - email: Optional updated email address.
+ * - updated_at: Optional timestamp override for controlled profile updates.
  */
 export type UserProfileUpdate = Partial<Pick<UserIdentity, 'username' | 'email'>> & {
   updated_at?: string;
 };
 
 /**
- * Database schema interface for the public schema.
+ * Interface: Database
+ * Description: Shared Supabase database type map for strongly typed access to public tables.
+ * Properties:
+ * - public: Container for tables exposed in the public schema.
  */
 export interface Database {
   public: {
@@ -58,7 +89,15 @@ export interface Database {
 }
 
 /**
- * Meditation interface for meditation data.
+ * Interface: Meditation
+ * Description: Represents a meditation item that can be listed, searched, and played in the application.
+ * Properties:
+ * - id: Unique identifier for the meditation.
+ * - title: Display title of the meditation.
+ * - category: Category used for grouping and filtering meditations.
+ * - duration: Total duration of the meditation in seconds.
+ * - audioUrl: URL pointing to the meditation audio source.
+ * - description: Optional summary shown in discovery or detail views.
  */
 export interface Meditation {
   id: string;
@@ -70,7 +109,14 @@ export interface Meditation {
 }
 
 /**
- * History record interface for tracking user meditation history.
+ * Interface: HistoryRecord
+ * Description: Represents a single listening history entry recorded for a user.
+ * Properties:
+ * - id: Unique identifier for the history record.
+ * - userId: Identifier of the user who listened to the meditation.
+ * - meditationId: Identifier of the meditation that was played.
+ * - listenedDuration: Number of seconds listened during the recorded session.
+ * - playedAt: ISO timestamp of when the playback event was recorded.
  */
 export interface HistoryRecord {
   id: string;
@@ -81,7 +127,13 @@ export interface HistoryRecord {
 }
 
 /**
- * API response interface for consistent API responses.
+ * Interface: ApiResponse
+ * Description: Generic wrapper used to keep backend API responses consistent across endpoints.
+ * Properties:
+ * - success: Indicates whether the request completed successfully.
+ * - message: Optional human-readable status or error message.
+ * - data: Optional typed payload returned by the endpoint.
+ * - token: Optional access token returned by authentication endpoints.
  */
 export interface ApiResponse<T> {
   success: boolean;

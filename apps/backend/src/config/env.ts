@@ -15,7 +15,7 @@ import { z } from 'zod';
  * - NODE_ENV: Optional runtime mode for the backend process.
  * - PORT: Optional port used by the Express server in local development.
  * - SUPABASE_URL: Base URL of the Supabase project used for authentication requests.
- * - SUPABASE_ANON_KEY: Public anonymous key used by the backend to call Supabase Auth endpoints.
+ * - SUPABASE_PUBLISHABLE_KEY: Public anonymous key used by the backend to call Supabase Auth endpoints.
  */
 const envSchema = z.object({
   // Environment
@@ -24,7 +24,7 @@ const envSchema = z.object({
   PORT: z.coerce.number().int().positive().optional(),
   // Supabase
   SUPABASE_URL: z.url(),
-  SUPABASE_ANON_KEY: z.string().min(1),
+  SUPABASE_PUBLISHABLE_KEY: z.string().min(1),
 });
 
 /**

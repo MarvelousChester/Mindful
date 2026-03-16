@@ -19,7 +19,7 @@ import { env } from '../config/env.js';
  * - A Supabase client instance configured with the project URL and anonymous key.
  */
 export const createSupabaseServerClient = () => {
-  return createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY, {
+  return createClient(env.SUPABASE_URL, env.SUPABASE_PUBLISHABLE_KEY, {
     auth: {
       autoRefreshToken: false,
       persistSession: false,

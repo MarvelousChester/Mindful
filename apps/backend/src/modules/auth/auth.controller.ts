@@ -1,27 +1,25 @@
 /**
- * @filename auth.ts
- * @date 2026-03-10
+ * @filename auth.controller.ts
+ * @date 2026-03-15
  * @author Salman Nouman Abulqasim
- * @fileoverview Authentication routes for user registration and login using Supabase Auth
+ * @fileoverview Authentication controller for handling user registration and login
  * @version 1.0.0
  */
 
-import { Router, type Request, type Response, type Router as ExpressRouter } from 'express';
+import type { Request, Response } from 'express';
 import type { AuthError, User as SupabaseAuthUser } from '@supabase/supabase-js';
 import { z } from 'zod';
+import { loginSchema, registerSchema } from 'shared';
 
-import { createSupabaseServerClient } from '../lib/supabase.js';
-import { loginSchema, registerSchema } from '../schemas/auth.js';
-
-const authRouter: ExpressRouter = Router();
+import { createSupabaseServerClient } from '../../lib/supabase.js';
 
 /**
  * Function: mapUser
- * Description: Maps a Supabase Auth user object to the app-level response shape returned by the backend.
+ * Description: Maps a Supabase authentication user object to the app-level response shape returned by the backend.
  * Params:
- * - user: The Supabase Auth user that was created or authenticated.
+ * - user: The Supabase authentication user object.
  * Returns:
- * - A normalized user object with camelCase fields used by the frontend.
+ * - An object containing the user's ID, username, email, and creation date.
  */
 const mapUser = (user: SupabaseAuthUser) => ({
   id: user.id,
@@ -37,10 +35,10 @@ const mapUser = (user: SupabaseAuthUser) => ({
  * Function: getErrorStatus
  * Description: Maps a Supabase authentication error to the most appropriate HTTP status code.
  * Params:
- * - error: The Supabase Auth error returned from a failed authentication request.
- * - fallbackStatus: The default HTTP status to use when the error does not map to a more specific status.
+ * - error: The Supabase authentication error object.
+ * - fallbackStatus: The default HTTP status code to return if the error message doesn't match any known cases.
  * Returns:
- * - The HTTP status code that should be sent in the API response.
+ * - An HTTP status code that best represents the error.
  */
 const getErrorStatus = (error: AuthError, fallbackStatus: number): number => {
   const message = error.message.toLowerCase();
@@ -62,9 +60,9 @@ const getErrorStatus = (error: AuthError, fallbackStatus: number): number => {
  * Function: formatValidationError
  * Description: Converts a Zod validation error into a structured tree format suitable for API responses.
  * Params:
- * - error: The Zod validation error produced by `safeParse`.
+ * - error: The Zod validation error object.
  * Returns:
- * - A treeified validation error object produced by the Zod v4 top-level formatter.
+ * - A treeified error object that can be sent in the API response.
  */
 const formatValidationError = (error: z.ZodError) => z.treeifyError(error);
 
@@ -72,11 +70,11 @@ const formatValidationError = (error: z.ZodError) => z.treeifyError(error);
  * Function: sendValidationError
  * Description: Sends a consistent validation error response for request bodies that fail Zod parsing.
  * Params:
- * - res: The Express response used to send the validation error payload.
- * - message: A human-readable message describing which request payload failed validation.
- * - error: The Zod validation error produced by `safeParse`.
+ * - res: The Express response object.
+ * - message: A human-readable error message.
+ * - error: The Zod validation error object.
  * Returns:
- * - An Express JSON response with a 400 status and treeified Zod validation details.
+ * - A JSON response with the validation error details.
  */
 const sendValidationError = (res: Response, message: string, error: z.ZodError) => {
   return res.status(400).json({
@@ -93,12 +91,12 @@ const sendValidationError = (res: Response, message: string, error: z.ZodError) 
  * Function: registerUser
  * Description: Validates the registration payload and creates a new Supabase Auth user account.
  * Params:
- * - req: The Express request containing username, email, and password in the request body.
- * - res: The Express response used to send the registration result back to the client.
+ * - req: The Express request object containing the registration data.
+ * - res: The Express response object to send the registration result.
  * Returns:
- * - A JSON response containing the registration status, message, and optional session data.
+ * - A JSON response indicating success or failure.
  */
-const registerUser = async (req: Request, res: Response) => {
+export const registerUser = async (req: Request, res: Response) => {
   const parsedBody = registerSchema.safeParse(req.body);
 
   if (!parsedBody.success) {
@@ -126,9 +124,7 @@ const registerUser = async (req: Request, res: Response) => {
 
   return res.status(201).json({
     success: true,
-    message: data.session
-      ? 'User registered successfully'
-      : 'Registration successful. Please check your email to confirm your account.',
+    message: 'User registered successfully',
     token: data.session?.access_token,
     data: data.user
       ? {
@@ -143,12 +139,12 @@ const registerUser = async (req: Request, res: Response) => {
  * Function: loginUser
  * Description: Validates login credentials and creates a Supabase Auth session for an existing user.
  * Params:
- * - req: The Express request containing email and password in the request body.
- * - res: The Express response used to send the login result back to the client.
+ * - req: The Express request object containing the login data.
+ * - res: The Express response object to send the login result.
  * Returns:
- * - A JSON response containing the login status, access token, refresh token, and user data.
+ * - A JSON response indicating success or failure.
  */
-const loginUser = async (req: Request, res: Response) => {
+export const loginUser = async (req: Request, res: Response) => {
   const parsedBody = loginSchema.safeParse(req.body);
 
   if (!parsedBody.success) {
@@ -182,8 +178,3 @@ const loginUser = async (req: Request, res: Response) => {
     },
   });
 };
-
-authRouter.post('/register', registerUser);
-authRouter.post('/login', loginUser);
-
-export default authRouter;

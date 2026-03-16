@@ -6,14 +6,12 @@
  * @version 1.0.0
  */
 
+import 'dotenv/config';
 import express, { type Request, type Response } from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 
 import { env } from './config/env.js';
-import authRouter from './routes/auth.js';
-
-dotenv.config();
+import authRouter from './modules/auth/auth.routes.js';
 
 const app: express.Application = express();
 const port = env.PORT ?? 3001;

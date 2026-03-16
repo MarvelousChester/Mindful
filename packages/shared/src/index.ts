@@ -141,3 +141,5 @@ export interface ApiResponse<T> {
   data?: T;
   token?: string;
 }
+
+export * from './schemas/auth.js';

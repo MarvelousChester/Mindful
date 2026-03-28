@@ -11,6 +11,7 @@ import { useShallow } from 'zustand/react/shallow'
 
 import { AuthScreen } from './features/auth/AuthScreen'
 import { useAuthStore } from './features/auth/store'
+import { MediaScreen } from './features/media/MediaScreen'
 
 /**
  * Function: ProtectedRoute
@@ -44,59 +45,6 @@ const ProtectedRoute = () => {
   return <Outlet />
 }
 
-/**
- * Note: This is a placeholder component for the home page.
- * Replace this component when implementing the actual home page and
- * the corresponding route in the Routes component.
- */
-
-/**
- * Function: AppHome
- * Description: Displays the home page for authenticated users.
- * Params:
- * - None.
- * Returns:
- * - A JSX element displaying the home page for authenticated users.
- */
-const AppHome = () => {
-  const { clearSession, user } = useAuthStore(
-    useShallow((state) => ({
-      clearSession: state.clearSession,
-      user: state.user,
-    })),
-  )
-
-  if (!user) {
-    return <Navigate replace to="/register" />
-  }
-
-  return (
-    <main className="min-h-screen bg-slate-50 px-4 py-12 text-slate-900">
-      <div className="mx-auto flex max-w-3xl flex-col gap-6 rounded-4xl border border-slate-200 bg-white p-8 shadow-[0_30px_80px_rgba(15,23,42,0.08)]">
-        <div className="space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">Protected Route</p>
-          <h1 className="text-4xl font-semibold tracking-tight">Welcome back, {user.username}</h1>
-          <p className="text-base text-slate-600">
-            This page is protected and requires a valid session. You can sign out using the button below.
-          </p>
-        </div>
-
-        <div className="flex flex-wrap items-center gap-3">
-          <span className="inline-flex rounded-full bg-sky-50 px-4 py-2 text-sm font-semibold text-sky-700">
-            {user.email}
-          </span>
-          <button
-            type="button"
-            onClick={clearSession}
-            className="rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900"
-          >
-            Sign Out
-          </button>
-        </div>
-      </div>
-    </main>
-  )
-}
 
 /**
  * Function: App
@@ -113,7 +61,7 @@ function App() {
       <Route path="/register" element={<AuthScreen mode="register" />} />
       <Route path="/login" element={<AuthScreen mode="login" />} />
       <Route element={<ProtectedRoute />}>
-        <Route path="/app" element={<AppHome />} />
+        <Route path="/app" element={<MediaScreen />} />
       </Route>
       <Route path="*" element={<Navigate replace to="/register" />} />
     </Routes>

@@ -1,25 +1,44 @@
 import { useEffect, useRef, useState } from "react";
 import type { Track } from "./types";
 
-
-
 interface MediaPlayerProps {
   track: Track | null;
 }
 
 export function MediaPlayer({ track }: MediaPlayerProps) {
+  if (!track) return null;
+
+  return <MediaPlayerContent key={track.audioUrl ?? track.id} track={track} />;
+}
+
+function MediaPlayerContent({ track }: { track: Track }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.67);
   const [isMuted, setIsMuted] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
 
   useEffect(() => {
-    audioRef.current = new Audio(track?.audioUrl);
+    const audio = new Audio(track.audioUrl);
+    audioRef.current = audio;
+
+    const onTimeUpdate = () => setCurrentTime(audio.currentTime);
+    const onLoadedMetadata = () => setDuration(audio.duration);
+    const onEnded = () => setIsPlaying(false);
+
+    audio.addEventListener("timeupdate", onTimeUpdate);
+    audio.addEventListener("loadedmetadata", onLoadedMetadata);
+    audio.addEventListener("ended", onEnded);
+
     return () => {
-      audioRef.current?.pause();
+      audio.pause();
+      audio.removeEventListener("timeupdate", onTimeUpdate);
+      audio.removeEventListener("loadedmetadata", onLoadedMetadata);
+      audio.removeEventListener("ended", onEnded);
       audioRef.current = null;
     };
-  }, [track?.audioUrl]);
+  }, [track.audioUrl]);
 
   useEffect(() => {
     if (!audioRef.current) return;
@@ -66,7 +85,34 @@ export function MediaPlayer({ track }: MediaPlayerProps) {
     setIsMuted((prev) => !prev);
   }
 
-  if (!track) return null;
+  /**
+   * Function: formatTime
+   * Description: Formats a duration in seconds to m:ss string.
+   * Params:
+   * - seconds: number of seconds to format
+   * Returns: Formatted time string (e.g. "3:07")
+   */
+  function formatTime(seconds: number): string {
+    if (!isFinite(seconds)) return "0:00";
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return `${m}:${s.toString().padStart(2, "0")}`;
+  }
+
+  /**
+   * Function: handleSeek
+   * Description: Seeks audio to position based on click location on the progress bar.
+   * Params:
+   * - e: React mouse event on the progress bar element
+   * Returns: void
+   */
+  function handleSeek(e: React.MouseEvent<HTMLDivElement>) {
+    if (!audioRef.current || !duration) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const newTime = Math.max(0, Math.min(duration, ((e.clientX - rect.left) / rect.width) * duration));
+    audioRef.current.currentTime = newTime;
+    setCurrentTime(newTime);
+  }
 
   return (
     <div
@@ -82,7 +128,7 @@ export function MediaPlayer({ track }: MediaPlayerProps) {
             <h4 className="font-semibold text-sm leading-tight">
               Select Meditation to Begin
             </h4>
-            <p className="text-xs text-slate-400">Library • 0:00</p>
+            <p className="text-xs text-slate-400">Library • {formatTime(currentTime)}</p>
           </div>
         </div>
         <div className="flex flex-col items-center gap-2 w-full md:w-1/3">
@@ -100,12 +146,18 @@ export function MediaPlayer({ track }: MediaPlayerProps) {
               <span className="material-icons">forward_10</span>
             </button>
           </div>
-          <div
-            className="w-full max-w-sm h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full relative overflow-hidden group cursor-pointer"
-          >
+          <div className="w-full max-w-sm flex items-center gap-2 text-xs text-slate-400">
+            <span>{formatTime(currentTime)}</span>
             <div
-              className="absolute left-0 top-0 h-full bg-primary w-0 group-hover:w-1/3 transition-all"
-            ></div>
+              onClick={handleSeek}
+              className="flex-1 h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full relative overflow-hidden cursor-pointer"
+            >
+              <div
+                className="absolute left-0 top-0 h-full bg-primary transition-all"
+                style={{ width: duration ? `${(currentTime / duration) * 100}%` : "0%" }}
+              ></div>
+            </div>
+            <span>{formatTime(duration)}</span>
           </div>
         </div>
         <div className="hidden md:flex items-center justify-end gap-6 w-1/3">

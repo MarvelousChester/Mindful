@@ -226,8 +226,8 @@ export const AuthScreen = ({ mode }: AuthScreenProps) => {
     <div className="relative min-h-screen overflow-hidden bg-[#f4f6f5] text-slate-900">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -left-32 top-24 h-80 w-80 rounded-full bg-white/70 blur-3xl" />
-        <div className="absolute -bottom-24 -right-12 h-72 w-72 rounded-full bg-[#d7efe8] blur-3xl" />
-        <div className="absolute left-1/2 top-1/3 h-64 w-64 -translate-x-1/2 rounded-full bg-[#edf7f3] blur-3xl" />
+        <div className="absolute -bottom-24 -right-12 h-72 w-72 rounded-full bg-primary/30 blur-3xl" />
+        <div className="absolute left-1/2 top-1/3 h-64 w-64 -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" />
       </div>
 
       <AppHeader />
@@ -281,7 +281,7 @@ export const AuthScreen = ({ mode }: AuthScreenProps) => {
                     value={registerForm.username}
                     onChange={(event) => handleRegisterChange('username', event.target.value)}
                     placeholder="Choose a username"
-                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#9fd8cb] focus:bg-white focus:ring-4 focus:ring-[#dff3ee]"
+                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/20"
                   />
                 </label>
 
@@ -294,7 +294,7 @@ export const AuthScreen = ({ mode }: AuthScreenProps) => {
                     value={registerForm.email}
                     onChange={(event) => handleRegisterChange('email', event.target.value)}
                     placeholder="name@example.com"
-                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#9fd8cb] focus:bg-white focus:ring-4 focus:ring-[#dff3ee]"
+                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/20"
                   />
                 </label>
 
@@ -309,7 +309,7 @@ export const AuthScreen = ({ mode }: AuthScreenProps) => {
                     value={registerForm.password}
                     onChange={(event) => handleRegisterChange('password', event.target.value)}
                     placeholder="Create a strong password"
-                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#9fd8cb] focus:bg-white focus:ring-4 focus:ring-[#dff3ee]"
+                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/20"
                   />
                 </label>
 
@@ -318,7 +318,7 @@ export const AuthScreen = ({ mode }: AuthScreenProps) => {
                 <button
                   type="submit"
                   disabled={activeRequest === 'register'}
-                  className="w-full rounded-2xl bg-[#9fd8cb] px-4 py-4 text-base font-semibold text-white shadow-[0_18px_30px_rgba(159,216,203,0.35)] transition hover:bg-[#8ccabd] disabled:cursor-not-allowed disabled:opacity-70"
+                  className="w-full rounded-2xl bg-primary px-4 py-4 text-base font-semibold text-white shadow-[0_18px_30px_rgba(159,216,203,0.35)] transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-70"
                 >
                   {activeRequest === 'register' ? 'Creating Account...' : 'Sign Up'}
                 </button>
@@ -334,7 +334,7 @@ export const AuthScreen = ({ mode }: AuthScreenProps) => {
                     value={loginForm.email}
                     onChange={(event) => handleLoginChange('email', event.target.value)}
                     placeholder="name@example.com"
-                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#9fd8cb] focus:bg-white focus:ring-4 focus:ring-[#dff3ee]"
+                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/20"
                   />
                 </label>
 
@@ -347,7 +347,7 @@ export const AuthScreen = ({ mode }: AuthScreenProps) => {
                     value={loginForm.password}
                     onChange={(event) => handleLoginChange('password', event.target.value)}
                     placeholder="Enter your password"
-                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#9fd8cb] focus:bg-white focus:ring-4 focus:ring-[#dff3ee]"
+                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/20"
                   />
                 </label>
 
@@ -356,7 +356,7 @@ export const AuthScreen = ({ mode }: AuthScreenProps) => {
                 <button
                   type="submit"
                   disabled={activeRequest === 'login'}
-                  className="w-full rounded-2xl bg-[#9fd8cb] px-4 py-4 text-base font-semibold text-white shadow-[0_18px_30px_rgba(159,216,203,0.35)] transition hover:bg-[#8ccabd] disabled:cursor-not-allowed disabled:opacity-70"
+                  className="w-full rounded-2xl bg-primary px-4 py-4 text-base font-semibold text-white shadow-[0_18px_30px_rgba(159,216,203,0.35)] transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-70"
                 >
                   {activeRequest === 'login' ? 'Signing In...' : 'Log In'}
                 </button>

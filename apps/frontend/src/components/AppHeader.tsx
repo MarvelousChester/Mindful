@@ -16,9 +16,6 @@ export const AppHeader = () => {
         </p>
 
         <div className="flex items-center gap-4 text-sm leading-none text-slate-600">
-          <button type="button" className="inline-flex items-center transition hover:text-slate-900">
-            About
-          </button>
           <span className="inline-flex items-center justify-center">
             <CircleUserRound className="h-5 w-5" />
           </span>

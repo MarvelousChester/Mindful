@@ -126,13 +126,13 @@ function MediaPlayerContent({ track }: { track: Track }) {
           </div>
           <div>
             <h4 className="font-semibold text-sm leading-tight">
-              Select Meditation to Begin
+              {track.title}
             </h4>
-            <p className="text-xs text-slate-400">Library • {formatTime(currentTime)}</p>
+            <p className="text-xs text-slate-400">{formatTime(currentTime)}</p>
           </div>
         </div>
         <div className="flex flex-col items-center gap-2 w-full md:w-1/3">
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-8 pt-3">
             <button className="text-slate-400 hover:text-primary transition-colors">
               <span className="material-icons">replay_10</span>
             </button>

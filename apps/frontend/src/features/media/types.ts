@@ -6,8 +6,7 @@ export interface Track {
   audioUrl: string;
   thumbnailUrl?: string;
   university: string;
-  category: string;
-  createdAt: string;
+  category: string[];
 }
 
 export interface PlaybackState {

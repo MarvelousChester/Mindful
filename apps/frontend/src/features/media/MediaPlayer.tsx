@@ -1,10 +1,34 @@
+import { useEffect, useRef, useState } from "react";
 import type { Track } from "./types";
+
+
 
 interface MediaPlayerProps {
   track: Track | null;
 }
 
 export function MediaPlayer({ track }: MediaPlayerProps) {
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    audioRef.current = new Audio(track?.audioUrl);
+    return () => {
+      audioRef.current?.pause();
+      audioRef.current = null;
+    };
+  }, [track?.audioUrl]);
+
+  function togglePlay() {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  }
+
   if (!track) return null;
 
   return (
@@ -30,9 +54,10 @@ export function MediaPlayer({ track }: MediaPlayerProps) {
               <span className="material-icons">replay_10</span>
             </button>
             <button
+              onClick={togglePlay}
               className="w-12 h-12 bg-primary text-slate-800 rounded-full flex items-center justify-center shadow-lg shadow-primary/30 hover:scale-105 transition-transform"
             >
-              <span className="material-icons text-3xl">play_arrow</span>
+              <span className="material-icons text-3xl">{isPlaying ? "pause" : "play_arrow"}</span>
             </button>
             <button className="text-slate-400 hover:text-primary transition-colors">
               <span className="material-icons">forward_10</span>

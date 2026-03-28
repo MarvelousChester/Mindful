@@ -374,7 +374,7 @@ export const AuthScreen = ({ mode }: AuthScreenProps) => {
                 </label>
 
                 <p className="text-xs italic text-slate-400">{helperText}</p>
-
+                
                 <button
                   type="submit"
                   disabled={activeRequest === 'login'}
@@ -382,6 +382,21 @@ export const AuthScreen = ({ mode }: AuthScreenProps) => {
                 >
                   {activeRequest === 'login' ? 'Signing In...' : 'Log In'}
                 </button>
+
+                {import.meta.env.DEV && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setLoginForm({
+                        email: import.meta.env.VITE_DEV_EMAIL,
+                        password: import.meta.env.VITE_DEV_PASSWORD,
+                      })
+                    }}
+                    className="w-full rounded-2xl border border-dashed border-slate-300 px-4 py-3 text-sm text-slate-400 transition hover:border-slate-400 hover:text-slate-600"
+                  >
+                    Dev: Fill credentials
+                  </button>
+                )}
               </form>
             )}
 

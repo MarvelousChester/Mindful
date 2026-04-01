@@ -1,0 +1,1051 @@
+{
+  "source_page": "https://www.uclahealth.org/uclamindful/guided-meditations",
+  "duration_note": "Duration is stored as duration_seconds when shown on the UCLA page; otherwise it is null.",
+  "guided_meditations": [
+    {
+      "language": "ENGLISH",
+      "title": "Short Body Scan",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Body-Scan-Meditation.mp3",
+      "duration_seconds": 180,
+      "category": [
+        "Up To 10 Minutes",
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "ENGLISH",
+      "title": "Breath, Sound, Body Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/02_Breath_Sound_Body_Meditation.mp3",
+      "duration_seconds": 720,
+      "category": [
+        "Up To 15 Minutes",
+        "Breathing",
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "ENGLISH",
+      "title": "Breathing Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/01_Breathing_Meditation.mp3",
+      "duration_seconds": 300,
+      "category": [
+        "Up To 10 Minutes",
+        "Breathing"
+      ]
+    },
+    {
+      "language": "ENGLISH",
+      "title": "Complete Meditation Instructions",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/03_Complete_Meditation_Instructions.mp3",
+      "duration_seconds": 1140,
+      "category": [
+        "Up To 30 Minutes",
+        "Mindfulness"
+      ]
+    },
+    {
+      "language": "ENGLISH",
+      "title": "Loving Kindness Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/05_Loving_Kindness_Meditation.mp3",
+      "duration_seconds": 540,
+      "category": [
+        "Up To 10 Minutes",
+        "Loving Kindness"
+      ]
+    },
+    {
+      "language": "ENGLISH",
+      "title": "Meditation for Working with Difficulties",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/04_Meditation_for_Working_with_Difficulties.mp3",
+      "duration_seconds": 420,
+      "category": [
+        "Up To 10 Minutes",
+        "Stress & Anxiety"
+      ]
+    },
+    {
+      "language": "ENGLISH",
+      "title": "Body and Sound Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Body-Sound-Meditation.mp3",
+      "duration_seconds": 180,
+      "category": [
+        "Up To 10 Minutes",
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "ENGLISH",
+      "title": "Body Scan for Sleep",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Body-Scan-for-Sleep.mp3",
+      "duration_seconds": 780,
+      "category": [
+        "Up To 15 Minutes",
+        "Body Scan",
+        "Sleep"
+      ]
+    },
+    {
+      "language": "ARABIC",
+      "title": "Short Body Scan",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Arabic-bodyscan.mp3",
+      "duration_seconds": 210,
+      "category": [
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "ARABIC",
+      "title": "Breath, Sound, Body Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Arabic-breath-sound-body.mp3",
+      "duration_seconds": 944,
+      "category": [
+        "Breathing",
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "ARABIC",
+      "title": "Breathing Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Arabic-breath-short.mp3",
+      "duration_seconds": 438,
+      "category": [
+        "Breathing"
+      ]
+    },
+    {
+      "language": "ARABIC",
+      "title": "Complete Meditation Instructions",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Arabic-Complete.mp3",
+      "duration_seconds": 820,
+      "category": [
+        "Mindfulness"
+      ]
+    },
+    {
+      "language": "ARABIC",
+      "title": "Loving Kindness Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Arabic-Loving-Kindness.mp3",
+      "duration_seconds": 596,
+      "category": [
+        "Loving Kindness"
+      ]
+    },
+    {
+      "language": "ARABIC",
+      "title": "Meditation for Working with Difficulties",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Arabic--working-with-difficulties.mp3",
+      "duration_seconds": 395,
+      "category": [
+        "Stress & Anxiety"
+      ]
+    },
+    {
+      "language": "ARMENIAN",
+      "title": "Short Body Scan",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Armenian-bodyscan.mp3",
+      "duration_seconds": 173,
+      "category": [
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "ARMENIAN",
+      "title": "Breath, Sound, Body Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Armenian-breathsoundbody.mp3",
+      "duration_seconds": 532,
+      "category": [
+        "Breathing",
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "ARMENIAN",
+      "title": "Breathing Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Armenian-breathing.mp3",
+      "duration_seconds": 314,
+      "category": [
+        "Breathing"
+      ]
+    },
+    {
+      "language": "ARMENIAN",
+      "title": "Complete Meditation Instructions",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Armenian-complete.mp3",
+      "duration_seconds": 849,
+      "category": [
+        "Mindfulness"
+      ]
+    },
+    {
+      "language": "ARMENIAN",
+      "title": "Loving Kindness Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Armenian-lovingkindness.mp3",
+      "duration_seconds": 425,
+      "category": [
+        "Loving Kindness"
+      ]
+    },
+    {
+      "language": "ARMENIAN",
+      "title": "Meditation for Working with Difficulties",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Armenian-difficulties.mp3",
+      "duration_seconds": 428,
+      "category": [
+        "Stress & Anxiety"
+      ]
+    },
+    {
+      "language": "CANTONESE",
+      "title": "Short Body Scan",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Cantonese-body-scan.mp3",
+      "duration_seconds": 242,
+      "category": [
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "CANTONESE",
+      "title": "Breath, Sound, Body Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Cantonese-breathsoundbody.mp3",
+      "duration_seconds": 683,
+      "category": [
+        "Breathing",
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "CANTONESE",
+      "title": "Breathing Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Cantonese-breath.mp3",
+      "duration_seconds": 407,
+      "category": [
+        "Breathing"
+      ]
+    },
+    {
+      "language": "CANTONESE",
+      "title": "Complete Meditation Instructions",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Cantonese-Complete.mp3",
+      "duration_seconds": 1090,
+      "category": [
+        "Mindfulness"
+      ]
+    },
+    {
+      "language": "CANTONESE",
+      "title": "Loving Kindness Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Cantonese-lovingkindness.mp3",
+      "duration_seconds": 601,
+      "category": [
+        "Loving Kindness"
+      ]
+    },
+    {
+      "language": "CANTONESE",
+      "title": "Meditation for Working with Difficulties",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Cantonese-difficulties.mp3",
+      "duration_seconds": 468,
+      "category": [
+        "Stress & Anxiety"
+      ]
+    },
+    {
+      "language": "FARSI",
+      "title": "Short Body Scan",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Farsi-bodyscan.mp3",
+      "duration_seconds": 382,
+      "category": [
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "FARSI",
+      "title": "Breath, Sound, Body Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Farsi-breathsoundbody.mp3",
+      "duration_seconds": 900,
+      "category": [
+        "Breathing",
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "FARSI",
+      "title": "Breathing Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Farsi-breathing.mp3",
+      "duration_seconds": 409,
+      "category": [
+        "Breathing"
+      ]
+    },
+    {
+      "language": "FARSI",
+      "title": "Complete Meditation Instructions",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Farsi-breathing.mp3",
+      "duration_seconds": 409,
+      "category": [
+        "Mindfulness"
+      ]
+    },
+    {
+      "language": "FARSI",
+      "title": "Loving Kindness Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Farsi-lovingkindness.mp3",
+      "duration_seconds": 813,
+      "category": [
+        "Loving Kindness"
+      ]
+    },
+    {
+      "language": "FILIPINO/ TAGALOG",
+      "title": "Pagbubulay-bulay: Hagod sa Katawan",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Filipino-%20bodyscan.mp3",
+      "duration_seconds": 350,
+      "category": [
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "FILIPINO/ TAGALOG",
+      "title": "Pagbubulay-bulay: Hininga, Tunog, Katawan",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Filipino-breathsoundbody.mp3",
+      "duration_seconds": 665,
+      "category": [
+        "Breathing"
+      ]
+    },
+    {
+      "language": "FILIPINO/ TAGALOG",
+      "title": "Pagbubulay-bulay: H I N G A",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Filipino-breathing.mp3",
+      "duration_seconds": 491,
+      "category": []
+    },
+    {
+      "language": "FILIPINO/ TAGALOG",
+      "title": "Kumpletong pagtuturo ng pagbubulay-bulay",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Filipino-complete.mp3",
+      "duration_seconds": 1281,
+      "category": [
+        "Mindfulness"
+      ]
+    },
+    {
+      "language": "FILIPINO/ TAGALOG",
+      "title": "Pagbubulay-bulay: Kabutihang-loob na puspos ng pag-ibig",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Filipino-lovingKindness.mp3",
+      "duration_seconds": 768,
+      "category": [
+        "Loving Kindness"
+      ]
+    },
+    {
+      "language": "FILIPINO/ TAGALOG",
+      "title": "Pagbubulay-bulay para harapin ang mahirap",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Filipino-difficulties.mp3",
+      "duration_seconds": 571,
+      "category": [
+        "Stress & Anxiety"
+      ]
+    },
+    {
+      "language": "FRENCH/ Fran\u00e7ais",
+      "title": "M\u00e9ditation de la Respiration",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/1.Meditation-de-la-Respiration.mp3",
+      "duration_seconds": 393,
+      "category": [
+        "Breathing"
+      ]
+    },
+    {
+      "language": "FRENCH/ Fran\u00e7ais",
+      "title": "M\u00e9ditation de la Respiration, des Sons et du Corps",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/2.Meditation-de-la-Respiration-des-Sons-et-du-Corps.mp3",
+      "duration_seconds": 836,
+      "category": [
+        "Breathing"
+      ]
+    },
+    {
+      "language": "FRENCH/ Fran\u00e7ais",
+      "title": "Instructions Compl\u00e8tes de M\u00e9ditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/3.Instructions-Completes-de-Meditation.mp3",
+      "duration_seconds": 1317,
+      "category": [
+        "Mindfulness"
+      ]
+    },
+    {
+      "language": "FRENCH/ Fran\u00e7ais",
+      "title": "M\u00e9ditation pour Travailler avec les Difficult\u00e9es",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/4.Meditation-pour-Travailler-avec-les-Difficultees.mp3",
+      "duration_seconds": 668,
+      "category": [
+        "Stress & Anxiety"
+      ]
+    },
+    {
+      "language": "FRENCH/ Fran\u00e7ais",
+      "title": "M\u00e9ditation de la Bienveillance",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/5.Meditation-de-la-Bienveillance.mp3",
+      "duration_seconds": 867,
+      "category": [
+        "Loving Kindness"
+      ]
+    },
+    {
+      "language": "FRENCH/ Fran\u00e7ais",
+      "title": "M\u00e9ditation du Scan Corporel",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/6.Meditation-du-Scan-Corporel.mp3",
+      "duration_seconds": 310,
+      "category": [
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "GERMAN",
+      "title": "Short Body Scan",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/German-ShortBodyscan.mp3",
+      "duration_seconds": 183,
+      "category": [
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "GERMAN",
+      "title": "Breath, Sound, Body Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/German-BreathSoundBody.mp3",
+      "duration_seconds": 742,
+      "category": [
+        "Breathing",
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "GERMAN",
+      "title": "Breathing Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/German-Breath.mp3",
+      "duration_seconds": 336,
+      "category": [
+        "Breathing"
+      ]
+    },
+    {
+      "language": "GERMAN",
+      "title": "Complete Meditation Instructions",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/German-Complete.mp3",
+      "duration_seconds": 1149,
+      "category": [
+        "Mindfulness"
+      ]
+    },
+    {
+      "language": "GERMAN",
+      "title": "Loving Kindness Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/German-LK.mp3",
+      "duration_seconds": 477,
+      "category": [
+        "Loving Kindness"
+      ]
+    },
+    {
+      "language": "GERMAN",
+      "title": "Meditation for Working with Difficulties",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/German-WWD.mp3",
+      "duration_seconds": 407,
+      "category": [
+        "Stress & Anxiety"
+      ]
+    },
+    {
+      "language": "GERMAN",
+      "title": "Body Scan for Sleep",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/German-BodyScanSleep.mp3",
+      "duration_seconds": 829,
+      "category": [
+        "Body Scan",
+        "Sleep"
+      ]
+    },
+    {
+      "language": "GREEK",
+      "title": "Short Body Scan",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Greek-shortbodyscan.mp3",
+      "duration_seconds": 170,
+      "category": [
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "GREEK",
+      "title": "Breath, Sound, Body Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Greek-breathsoundbody.mp3",
+      "duration_seconds": 687,
+      "category": [
+        "Breathing",
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "GREEK",
+      "title": "Breathing Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Greek-breathing-meditation.mp3",
+      "duration_seconds": 297,
+      "category": [
+        "Breathing"
+      ]
+    },
+    {
+      "language": "GREEK",
+      "title": "Complete Meditation Instructions",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Greek-complete-meditation.mp3",
+      "duration_seconds": 1140,
+      "category": [
+        "Mindfulness"
+      ]
+    },
+    {
+      "language": "GREEK",
+      "title": "Loving Kindness Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Greek-lovingkindness.mp3",
+      "duration_seconds": 532,
+      "category": [
+        "Loving Kindness"
+      ]
+    },
+    {
+      "language": "GREEK",
+      "title": "Meditation for Working with Difficulties",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Greek-working-with-difficulties.mp3",
+      "duration_seconds": 400,
+      "category": [
+        "Stress & Anxiety"
+      ]
+    },
+    {
+      "language": "HINDI",
+      "title": "Short Body Scan",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Hindi-bodyscan.mp3",
+      "duration_seconds": 340,
+      "category": [
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "HINDI",
+      "title": "Breath, Sound, Body Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Hindi-breathbodysound.mp3",
+      "duration_seconds": 663,
+      "category": [
+        "Breathing",
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "HINDI",
+      "title": "Breathing Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Hindi-breathing.mp3",
+      "duration_seconds": 408,
+      "category": [
+        "Breathing"
+      ]
+    },
+    {
+      "language": "HINDI",
+      "title": "Complete Meditation Instructions",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Hindi-complete.mp3",
+      "duration_seconds": 1098,
+      "category": [
+        "Mindfulness"
+      ]
+    },
+    {
+      "language": "HINDI",
+      "title": "Loving Kindness Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Hindi-lovingKindness.mp3",
+      "duration_seconds": 862,
+      "category": [
+        "Loving Kindness"
+      ]
+    },
+    {
+      "language": "HINDI",
+      "title": "Meditation for Working with Difficulties",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Hindi-difficulties.mp3",
+      "duration_seconds": 712,
+      "category": [
+        "Stress & Anxiety"
+      ]
+    },
+    {
+      "language": "ITALIAN",
+      "title": "Short Body Scan",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Italian-Shortbodyscan.wav",
+      "duration_seconds": 160,
+      "category": [
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "ITALIAN",
+      "title": "Breath, Sound, Body Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Italian-BreathSoundBodyMeditation.wav",
+      "duration_seconds": 615,
+      "category": [
+        "Breathing",
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "ITALIAN",
+      "title": "Breathing Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Italian-BreathingMeditation.wav",
+      "duration_seconds": 273,
+      "category": [
+        "Breathing"
+      ]
+    },
+    {
+      "language": "ITALIAN",
+      "title": "Complete Meditation Instructions",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Italian-CompleteMeditationInstructions.wav",
+      "duration_seconds": 815,
+      "category": [
+        "Mindfulness"
+      ]
+    },
+    {
+      "language": "ITALIAN",
+      "title": "Loving Kindness Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Italian-LovingKindness.wav",
+      "duration_seconds": 429,
+      "category": [
+        "Loving Kindness"
+      ]
+    },
+    {
+      "language": "ITALIAN",
+      "title": "Meditation for Working with Difficulties",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Italian-MeditationforWorkingwithDifficulties.wav",
+      "duration_seconds": 346,
+      "category": [
+        "Stress & Anxiety"
+      ]
+    },
+    {
+      "language": "JAPANESE",
+      "title": "Short Body Scan",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Japanese-bodyscan.mp3",
+      "duration_seconds": 271,
+      "category": [
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "JAPANESE",
+      "title": "Breath, Sound, Body Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Japanese-breathsoundbody.mp3",
+      "duration_seconds": 740,
+      "category": [
+        "Breathing",
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "JAPANESE",
+      "title": "Breathing Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Japanese-breathing.mp3",
+      "duration_seconds": 406,
+      "category": [
+        "Breathing"
+      ]
+    },
+    {
+      "language": "JAPANESE",
+      "title": "Complete Meditation Instructions",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Japanese-complete.mp3",
+      "duration_seconds": 1364,
+      "category": [
+        "Mindfulness"
+      ]
+    },
+    {
+      "language": "JAPANESE",
+      "title": "Loving Kindness Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Japanese-lovingkindness.mp3",
+      "duration_seconds": 714,
+      "category": [
+        "Loving Kindness"
+      ]
+    },
+    {
+      "language": "JAPANESE",
+      "title": "Meditation for Working with Difficulties",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Japanese-difficulties.mp3",
+      "duration_seconds": 558,
+      "category": [
+        "Stress & Anxiety"
+      ]
+    },
+    {
+      "language": "KOREAN",
+      "title": "Short Body Scan",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Korean-bodyscan.mp3",
+      "duration_seconds": 283,
+      "category": [
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "KOREAN",
+      "title": "Breath, Sound, Body Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Korean-breathsoundbody.mp3",
+      "duration_seconds": 754,
+      "category": [
+        "Breathing",
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "KOREAN",
+      "title": "Breathing Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Korean-breathing.mp3",
+      "duration_seconds": 363,
+      "category": [
+        "Breathing"
+      ]
+    },
+    {
+      "language": "KOREAN",
+      "title": "Complete Meditation Instructions",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Korean-complete.mp3",
+      "duration_seconds": 952,
+      "category": [
+        "Mindfulness"
+      ]
+    },
+    {
+      "language": "KOREAN",
+      "title": "Loving Kindness Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Korean-lovingkindness.mp3",
+      "duration_seconds": 772,
+      "category": [
+        "Loving Kindness"
+      ]
+    },
+    {
+      "language": "KOREAN",
+      "title": "Meditation for Working with Difficulties",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Korean-difficulties.mp3",
+      "duration_seconds": 509,
+      "category": [
+        "Stress & Anxiety"
+      ]
+    },
+    {
+      "language": "MANDARIN",
+      "title": "Short Body Scan",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Mandarin-bodyscan.mp3",
+      "duration_seconds": 249,
+      "category": [
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "MANDARIN",
+      "title": "Breath, Sound, Body Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Mandarin-breathsoundbody.mp3",
+      "duration_seconds": 713,
+      "category": [
+        "Breathing",
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "MANDARIN",
+      "title": "Breathing Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Mandarin-breathing.mp3",
+      "duration_seconds": 333,
+      "category": [
+        "Breathing"
+      ]
+    },
+    {
+      "language": "MANDARIN",
+      "title": "Complete Meditation Instructions",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Mandarin-complete.mp3",
+      "duration_seconds": 1048,
+      "category": [
+        "Mindfulness"
+      ]
+    },
+    {
+      "language": "MANDARIN",
+      "title": "Loving Kindness Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Mandarin-lovingkindness.mp3",
+      "duration_seconds": 532,
+      "category": [
+        "Loving Kindness"
+      ]
+    },
+    {
+      "language": "MANDARIN",
+      "title": "Meditation for Working with Difficulties",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Mandarin-workingwithdifficulties.mp3",
+      "duration_seconds": 431,
+      "category": [
+        "Stress & Anxiety"
+      ]
+    },
+    {
+      "language": "MIXTEC (high)/ MIXTECO (alto)",
+      "title": "Escaneo corporal",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Mixtechigh-bodyscan.mp3",
+      "duration_seconds": 300,
+      "category": [
+        "Up To 10 Minutes"
+      ]
+    },
+    {
+      "language": "MIXTEC (high)/ MIXTECO (alto)",
+      "title": "Saa naka xi?i nruu natava nruu tachi, nee mee nruu, xi saa tsaku nroo.",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Mixtechigh-breathsoundbody.mp3",
+      "duration_seconds": 720,
+      "category": [
+        "Up To 15 Minutes"
+      ]
+    },
+    {
+      "language": "MIXTEC (high)/ MIXTECO (alto)",
+      "title": "Sa na kani ini nruu, sa tu nre?e vixi",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Mixtechigh-breathing.mp3",
+      "duration_seconds": 420,
+      "category": [
+        "Up To 10 Minutes"
+      ]
+    },
+    {
+      "language": "MIXTEC (high)/ MIXTECO (alto)",
+      "title": "Sa nakani ini nru",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Mixtechigh-complete.mp3",
+      "duration_seconds": 1285,
+      "category": []
+    },
+    {
+      "language": "MIXTEC (high)/ MIXTECO (alto)",
+      "title": "Sa naka ni inni nruu, kuu nra ini nruu xi sa kida ini nru mee nruu",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Mixtechigh-lovingkindness.mp3",
+      "duration_seconds": 1200,
+      "category": [
+        "Up To 30 Minutes"
+      ]
+    },
+    {
+      "language": "MIXTEC (high)/ MIXTECO (alto)",
+      "title": "Saa kida choo nruu ora ntse?e yuu ta?an nruu kua\u2019an \u00f1uuyii ya?a",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Mixtechigh-workingwithdifficulties.mp3",
+      "duration_seconds": 960,
+      "category": [
+        "Up To 30 Minutes"
+      ]
+    },
+    {
+      "language": "MIXTEC (low)/ MIXTECO (bajo)",
+      "title": "\u00d1a\u0331 kuu y\u00f3 \u00f1a\u0331 n\u00e1 kunta\u0331a\u0331 ini y\u00f3 \u00f1a\u0331 k\u00fa\u00fa x\u00ed\ua78cin y\u00f3",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Mixteclow-bodyscan.mp3",
+      "duration_seconds": 198,
+      "category": []
+    },
+    {
+      "language": "MIXTEC (low)/ MIXTECO (bajo)",
+      "title": "\u00bfNa k\u00fa\u00fa \u00f1a\u0331 k\u00fa\u00fa x\u00ed\ua78cin \u00f1a\u0331 nt\u00e1ki\ua78cin-\u00fan ta\u0331ch\u00ed-\u00fan, x\u00ed\ua78cin mi\u00ed-\u00fan ra x\u00ed\ua78cin \u00f1a\u0331 x\u00edni so\u0331\ua78co-\u00fan?",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Mixteclow-breathsoundbody.mp3",
+      "duration_seconds": 484,
+      "category": []
+    },
+    {
+      "language": "MIXTEC (low)/ MIXTECO (bajo)",
+      "title": "\u00d1a\u0331 kuu-y\u00f3 \u00f1a\u0331 n\u00e1 koo va\u0331\ua78ca ini-y\u00f3",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Mixteclow-breathing.mp3",
+      "duration_seconds": 308,
+      "category": []
+    },
+    {
+      "language": "MIXTEC (low)/ MIXTECO (bajo)",
+      "title": "Nti\ua78ci \u00f1a\u0331 ntakani ini-y\u00f3 xa\u0331\ua78c\u00e1 \u00f1a\u0331 n\u00e1 koo va\u0331\ua78ca ini-y\u00f3",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Mixteclow-complete.mp3",
+      "duration_seconds": 649,
+      "category": []
+    },
+    {
+      "language": "MIXTEC (low)/ MIXTECO (bajo)",
+      "title": "N\u00e1 ntakani ini-y\u00f3 xa\u0331\ua78c\u00e1 \u00f1a\u0331kuni\u0331-y\u00f3 n\u00e1 koo si\u0331\u00ed ini na\u0331k\u00fani-\u0331y\u00f3",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Mixteclow-lovingkindness.mp3",
+      "duration_seconds": 677,
+      "category": []
+    },
+    {
+      "language": "RUSSIAN",
+      "title": "Short Body Scan",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Russian-bodyscan.mp3",
+      "duration_seconds": 239,
+      "category": [
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "RUSSIAN",
+      "title": "Breath, Sound, Body Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Russian-breathsoundbody.mp3",
+      "duration_seconds": 624,
+      "category": [
+        "Breathing",
+        "Body Scan"
+      ]
+    },
+    {
+      "language": "RUSSIAN",
+      "title": "Breathing Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Russian-breathing.mp3",
+      "duration_seconds": 473,
+      "category": [
+        "Breathing"
+      ]
+    },
+    {
+      "language": "RUSSIAN",
+      "title": "Complete Meditation Instructions",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Russian-complete.mp3",
+      "duration_seconds": 1245,
+      "category": [
+        "Mindfulness"
+      ]
+    },
+    {
+      "language": "RUSSIAN",
+      "title": "Loving Kindness Meditation",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Russian-lovingKindness.mp3",
+      "duration_seconds": 777,
+      "category": [
+        "Loving Kindness"
+      ]
+    },
+    {
+      "language": "RUSSIAN",
+      "title": "Meditation for Working with Difficulties",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Russian-lovingKindness.mp3",
+      "duration_seconds": 777,
+      "category": [
+        "Stress & Anxiety"
+      ]
+    },
+    {
+      "language": "SPANISH/ESPA\u00d1OL",
+      "title": "Meditaci\u00f3n B\u00e1sica",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/short-meditation-espanol.mp3",
+      "duration_seconds": 300,
+      "category": [
+        "Up To 10 Minutes"
+      ]
+    },
+    {
+      "language": "SPANISH/ESPA\u00d1OL",
+      "title": "Meditaci\u00f3n comiendo",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/eating-meditation-espanol.mp3",
+      "duration_seconds": 480,
+      "category": [
+        "Up To 10 Minutes"
+      ]
+    },
+    {
+      "language": "SPANISH/ESPA\u00d1OL",
+      "title": "Meditaci\u00f3n de bondad amorosa",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/loving-kindness-espanol.mp3",
+      "duration_seconds": 540,
+      "category": [
+        "Up To 10 Minutes"
+      ]
+    },
+    {
+      "language": "SPANISH/ESPA\u00d1OL",
+      "title": "Meditaci\u00f3n completa",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Disco-14-min.mp3",
+      "duration_seconds": 840,
+      "category": [
+        "Up To 15 Minutes"
+      ]
+    },
+    {
+      "language": "SPANISH/ESPA\u00d1OL",
+      "title": "Trabajar con las dificultades 10 mins)",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Spanish-workingwithdifficulties.mp3",
+      "duration_seconds": 579,
+      "category": []
+    },
+    {
+      "language": "SPANISH/ESPA\u00d1OL",
+      "title": "Respiraci\u00f3n, cuerpo, sonidos",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Spanish-breathsoundbody.mp3",
+      "duration_seconds": 720,
+      "category": [
+        "Up To 15 Minutes",
+        "Breathing"
+      ]
+    },
+    {
+      "language": "SPANISH/ESPA\u00d1OL",
+      "title": "Escaneo corporal corto",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/Spanish-bodyscan.mp3",
+      "duration_seconds": 180,
+      "category": [
+        "Up To 10 Minutes"
+      ]
+    },
+    {
+      "language": "VIETNAMESE/Ti\u1ebfng Vi\u1ec7t",
+      "title": "Qu\u00e9t c\u01a1 th\u1ec3 ng\u1eafn",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/1_Vietnamese_bodyscan.mp3",
+      "duration_seconds": 249,
+      "category": []
+    },
+    {
+      "language": "VIETNAMESE/Ti\u1ebfng Vi\u1ec7t",
+      "title": "H\u01a1i th\u1edf, \u00c2m thanh, Thi\u1ec1n c\u01a1 th\u1ec3",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/2_Vietnamese_Breathsoundbody.mp3",
+      "duration_seconds": 778,
+      "category": []
+    },
+    {
+      "language": "VIETNAMESE/Ti\u1ebfng Vi\u1ec7t",
+      "title": "Thi\u1ec1n th\u1edf",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/3_Vietnamese_breathing.mp3",
+      "duration_seconds": 354,
+      "category": []
+    },
+    {
+      "language": "VIETNAMESE/Ti\u1ebfng Vi\u1ec7t",
+      "title": "H\u01b0\u1edbng d\u1eabn Thi\u1ec1n ho\u00e0n ch\u1ec9nh",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/4_Vietnamese_Complete.mp3",
+      "duration_seconds": 1107,
+      "category": []
+    },
+    {
+      "language": "VIETNAMESE/Ti\u1ebfng Vi\u1ec7t",
+      "title": "Thi\u1ec1n t\u1eeb bi",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/5_Vietnamese_Lovingkindness.mp3",
+      "duration_seconds": 880,
+      "category": []
+    },
+    {
+      "language": "VIETNAMESE/Ti\u1ebfng Vi\u1ec7t",
+      "title": "Thi\u1ec1n \u0111\u1ec3 l\u00e0m vi\u1ec7c v\u1edbi kh\u00f3 kh\u0103n",
+      "url": "https://d1cy5zxxhbcbkk.cloudfront.net/guided-meditations/6_Vietnamese_workingwithdifficulties.mp3",
+      "duration_seconds": 540,
+      "category": []
+    }
+  ],
+  "categories": [
+    "Up To 10 Minutes",
+    "Up To 15 Minutes",
+    "Up To 30 Minutes"
+  ]
+}

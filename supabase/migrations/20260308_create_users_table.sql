@@ -30,6 +30,7 @@ end;
 $$;
 
 -- Set updated_at trigger
+drop trigger if exists set_public_users_updated_at on public.users;
 create trigger set_public_users_updated_at
 before update on public.users
 for each row
@@ -60,18 +61,21 @@ end;
 $$;
 
 -- Handle new user trigger
+drop trigger if exists on_auth_user_created on auth.users;
 create trigger on_auth_user_created
 after insert on auth.users
 for each row
 execute function public.handle_new_user();
 
 -- RLS policies
+drop policy if exists "Users can view their own profile" on public.users;
 create policy "Users can view their own profile"
 on public.users
 for select
 using (auth.uid() = id);
 
 -- Users can update their own profile
+drop policy if exists "Users can update their own profile" on public.users;
 create policy "Users can update their own profile"
 on public.users
 for update
@@ -79,6 +83,7 @@ using (auth.uid() = id)
 with check (auth.uid() = id);
 
 -- Users can insert their own profile
+drop policy if exists "Users can insert their own profile" on public.users;
 create policy "Users can insert their own profile"
 on public.users
 for insert

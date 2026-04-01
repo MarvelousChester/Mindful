@@ -11,8 +11,7 @@ import { useShallow } from 'zustand/react/shallow'
 
 import { AuthScreen } from './features/auth/AuthScreen'
 import { useAuthStore } from './features/auth/store'
-import { MediaPlayer } from './features/media/MediaPlayer'
-import type { Track } from './features/media/types'
+import { MediaScreen } from './features/media/MediaScreen'
 
 /**
  * Function: ProtectedRoute
@@ -46,16 +45,6 @@ const ProtectedRoute = () => {
   return <Outlet />
 }
 
-const breathingMeditation: Track = {
-  id: "breathing-meditation",
-  title: "Breathing Meditation",
-  description: "",
-  duration: 5 * 60 + 3, // harcoded for now, will be fetched from backend later
-  language: "ENGLISH",
-  audioUrl: "https://mcgill.ca/wellness-hub/files/wellness-hub/breathing_meditation_0.mp3",
-  university: "McGill",
-  category: ["Up To 10 Minutes"],
-};
 /**
  * Function: App
  * Description: The main application component that defines the routing structure.
@@ -67,13 +56,12 @@ const breathingMeditation: Track = {
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate replace to="/register" />} />
       <Route path="/register" element={<AuthScreen mode="register" />} />
       <Route path="/login" element={<AuthScreen mode="login" />} />
       <Route element={<ProtectedRoute />}>
-        <Route path="/app" element={<MediaPlayer track={breathingMeditation} />} />
+        <Route path="/" element={<MediaScreen />} />
       </Route>
-      <Route path="*" element={<Navigate replace to="/register" />} />
+      <Route path="*" element={<Navigate replace to="/" />} />
     </Routes>
   )
 }

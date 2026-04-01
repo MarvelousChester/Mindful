@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import type { Track } from "./types";
+import type { Track } from "../types";
 
 interface MediaPlayerProps {
   track: Track | null;

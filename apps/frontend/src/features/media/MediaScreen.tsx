@@ -1,7 +1,13 @@
+import { useState } from 'react'
 import { AppHeader } from '../../components/AppHeader'
-import { TrackCard } from './TrackCard'
+import { CategoryFilter } from './components/CategoryFilter'
+import { MediaPlayer } from './components/MediaPlayer'
+import { TrackCard } from './components/TrackCard'
+import type { Track } from './types'
 
 export const MediaScreen = () => {
+  const [selectedTrack, setSelectedTrack] = useState<Track | null>(null)
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#f4f6f5] text-slate-900">
       <AppHeader />
@@ -27,20 +33,18 @@ export const MediaScreen = () => {
               audioUrl: 'https://example.com/audio/morning-clarity.mp3',
               thumbnailUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDn5mVOeriKqmhufhGqrSAnWoVlCsh_DLGNOa4GOjkqG0iOKrZEt3vwE0NHntF7F4EJh-o3f8CPFsNBtdYhTPhxVdePv5bXVduG3F_wJwaDf1-W-he7XxBJWjaxoH0BLzjlVdjJf3wca1yZKpzvD2_WQIrX09jbhcR0JiGnoq4iPmaICy4DWZrXks5gRg9A23u_MYLsxQmBlM7LfPcG1n2qg7RhWQD7WnDYKtTcZtbt8PbcuSTxehbv-2rJlD_PzeLF90TuQfF1dA',
               university: 'Mindful University',
-            }} onSelect={(track) => console.log('Selected track:', track)} />
+            }} onSelect={setSelectedTrack} />
           </div>
 
-          <div className="w-full md:w-[30%] bg-white dark:bg-slate-900 rounded-2xl shadow-sm px-4 py-3 flex flex-col gap-3">
-            {['Sleep', 'Focus', 'Anxiety', 'Gratitude'].map((tag) => (
-              <label key={tag} className="flex items-center gap-3 cursor-pointer group">
-                <input type="checkbox" value={tag.toLowerCase()} className="accent-primary w-4 h-4 cursor-pointer" />
-                <span className="text-sm text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">{tag}</span>
-              </label>
-            ))}
+          <div className="w-full md:w-[30%]">
+            <CategoryFilter selected={selectedCategories} onChange={setSelectedCategories} />
           </div>
           
         </div>
       </div>
+      <footer className="fixed bottom-0 inset-x-0 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border-t border-primary/20 px-6 py-4 z-50">
+        <MediaPlayer track={selectedTrack} />
+      </footer>
     </div>
   )
 }

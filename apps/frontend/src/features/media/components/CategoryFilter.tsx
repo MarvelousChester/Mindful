@@ -1,6 +1,5 @@
-const CATEGORIES = ['Sleep', 'Focus', 'Anxiety', 'Gratitude']
-
 interface CategoryFilterProps {
+  categories: string[]
   selected: string[]
   onChange: (selected: string[]) => void
 }
@@ -9,11 +8,12 @@ interface CategoryFilterProps {
  * Function: CategoryFilter
  * Description: Renders a list of category checkboxes for filtering tracks.
  * Params:
+ * - categories: list of available category labels derived from the current track list
  * - selected: array of currently selected category values
  * - onChange: callback fired with the updated selected array on checkbox toggle
  * Returns: A JSX box with one checkbox per category
  */
-export function CategoryFilter({ selected, onChange }: CategoryFilterProps) {
+export function CategoryFilter({ categories, selected, onChange }: CategoryFilterProps) {
   /**
    * Function: handleToggle
    * Description: Adds or removes a category from the selected list.
@@ -31,7 +31,7 @@ export function CategoryFilter({ selected, onChange }: CategoryFilterProps) {
 
   return (
     <div className="w-full bg-white dark:bg-slate-900 rounded-2xl shadow-sm px-4 py-3 flex flex-col gap-3">
-      {CATEGORIES.map((tag) => (
+      {categories.map((tag) => (
         <label key={tag} className="flex items-center gap-3 cursor-pointer group">
           <input
             type="checkbox"

@@ -3,6 +3,7 @@ export interface Track {
   title: string;
   description: string;
   duration: number; // seconds
+  language: string;
   audioUrl: string;
   thumbnailUrl?: string;
   university: string;

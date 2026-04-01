@@ -45,30 +45,28 @@ export const MediaScreen = () => {
       <AppHeader />
       <div className="grow max-w-5xl mx-auto w-full px-6 py-12 pb-40">
         <div className="text-center mb-6">
-          <h2 className="text-3xl font-bold mb-2 text-slate-800 dark:text-white">Find your peace</h2>
-          <p className="text-slate-500 dark:text-slate-400">Discover guided practices for every state of mind.</p>
+          <h2 className="text-3xl font-bold mb-2 text-slate-800">Find your peace</h2>
+          <p className="text-slate-500">Discover guided practices for every state of mind.</p>
         </div>
 
         <div className="flex justify-center mb-6">
-          <div className="inline-flex bg-white dark:bg-slate-900 rounded-2xl shadow-sm p-1 gap-1">
+          <div className="inline-flex bg-white rounded-2xl shadow-sm p-1 gap-1">
             <button
               onClick={() => handleViewChange('library')}
-              className={`flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-medium transition-all ${
-                view === 'library'
-                  ? 'bg-primary text-slate-800 shadow-sm'
-                  : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-200'
-              }`}
+              className={`flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-medium transition-all ${view === 'library'
+                ? 'bg-primary text-slate-800 shadow-sm'
+                : 'text-slate-500 hover:text-slate-700'
+                }`}
             >
               <span className="material-icons text-base">library_music</span>
               Library
             </button>
             <button
               onClick={() => handleViewChange('history')}
-              className={`flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-medium transition-all ${
-                view === 'history'
-                  ? 'bg-primary text-slate-800 shadow-sm'
-                  : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-200'
-              }`}
+              className={`flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-medium transition-all ${view === 'history'
+                ? 'bg-primary text-slate-800 shadow-sm'
+                : 'text-slate-500 hover:text-slate-700'
+                }`}
             >
               <span className="material-icons text-base">history</span>
               History
@@ -78,7 +76,7 @@ export const MediaScreen = () => {
 
         <div className="relative w-full mb-4">
           <span className="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">search</span>
-          <input className="w-full pl-12 pr-4 py-4 bg-white dark:bg-slate-900 border-none rounded-2xl shadow-sm focus:ring-2 focus:ring-primary transition-all outline-none text-slate-700 dark:text-slate-200" placeholder="Search for a practice..." type="text"/>
+          <input className="w-full pl-12 pr-4 py-4 bg-white border-none rounded-2xl shadow-sm focus:ring-2 focus:ring-primary transition-all outline-none text-slate-700" placeholder="Search for a practice..." type="text" />
         </div>
 
         <div className="flex flex-col md:flex-row gap-4 items-start">
@@ -109,7 +107,7 @@ export const MediaScreen = () => {
         </div>
       </div>
 
-      <footer className="fixed bottom-0 inset-x-0 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border-t border-primary/20 px-6 py-4 z-50">
+      <footer className="fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-xl border-t border-primary/20 px-6 py-4 z-50">
         <MediaPlayer track={selectedTrack} />
       </footer>
     </div>

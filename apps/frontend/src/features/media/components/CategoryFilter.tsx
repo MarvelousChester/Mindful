@@ -30,7 +30,7 @@ export function CategoryFilter({ categories, selected, onChange }: CategoryFilte
   }
 
   return (
-    <div className="w-full bg-white dark:bg-slate-900 rounded-2xl shadow-sm px-4 py-3 flex flex-col gap-3">
+    <div className="w-full bg-white rounded-2xl shadow-sm px-4 py-3 flex flex-col gap-3">
       {categories.map((tag) => (
         <label key={tag} className="flex items-center gap-3 cursor-pointer group">
           <input
@@ -40,7 +40,7 @@ export function CategoryFilter({ categories, selected, onChange }: CategoryFilte
             onChange={() => handleToggle(tag.toLowerCase())}
             className="accent-primary w-4 h-4 cursor-pointer"
           />
-          <span className="text-sm text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+          <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">
             {tag}
           </span>
         </label>

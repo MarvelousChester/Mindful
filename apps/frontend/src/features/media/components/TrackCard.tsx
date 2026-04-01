@@ -29,9 +29,9 @@ export function TrackCard({ track, onSelect }: TrackCardProps) {
   return (
     <div
       onClick={() => onSelect(track)}
-      className="group bg-white dark:bg-slate-900/50 p-4 rounded-2xl border border-transparent hover:border-primary/40 transition-all flex items-center gap-5 cursor-pointer shadow-sm hover:shadow-md"
+      className="group bg-white p-4 rounded-2xl border border-transparent hover:border-primary/40 transition-all flex items-center gap-5 cursor-pointer shadow-sm hover:shadow-md"
     >
-      <div className="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
+      <div className="relative w-20 h-20 rounded-xl overflow-hidden shrink-0">
         {track.thumbnailUrl ? (
           <img
             src={track.thumbnailUrl}
@@ -48,25 +48,25 @@ export function TrackCard({ track, onSelect }: TrackCardProps) {
         </div>
       </div>
 
-      <div className="flex-grow min-w-0">
+      <div className="grow min-w-0">
         <div className="flex items-center gap-3 mb-1">
           {track.category.map((cat) => (
             <span
               key={cat}
-              className="px-2 py-0.5 bg-primary/20 text-slate-700 dark:text-primary text-[10px] font-bold uppercase tracking-wider rounded"
+              className="px-2 py-0.5 bg-primary/20 text-slate-700 text-[10px] font-bold uppercase tracking-wider rounded"
             >
               {cat}
             </span>
           ))}
           <span className="text-xs text-slate-400 flex items-center gap-1">
             <span className="material-icons text-xs">schedule</span>
-            {formatDuration(track.duration)}
+            {track.duration ? formatDuration(track.duration) : 'Unknown'}
           </span>
         </div>
-        <h3 className="text-lg font-semibold truncate group-hover:text-slate-900 dark:group-hover:text-primary transition-colors">
+        <h3 className="text-lg font-semibold truncate group-hover:text-slate-900 transition-colors">
           {track.title}
         </h3>
-        <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-1">
+        <p className="text-sm text-slate-500 line-clamp-1">
           {track.university}
         </p>
       </div>

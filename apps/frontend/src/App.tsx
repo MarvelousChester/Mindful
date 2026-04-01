@@ -51,6 +51,7 @@ const breathingMeditation: Track = {
   title: "Breathing Meditation",
   description: "",
   duration: 5 * 60 + 3, // harcoded for now, will be fetched from backend later
+  language: "ENGLISH",
   audioUrl: "https://mcgill.ca/wellness-hub/files/wellness-hub/breathing_meditation_0.mp3",
   university: "McGill",
   category: ["Up To 10 Minutes"],

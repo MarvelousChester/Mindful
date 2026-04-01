@@ -58,6 +58,9 @@ out/
 # dotenv environment variable files
 .env.test
 
+# Seeding script secrets
+supabase/scripts/.env
+
 # parcel-bundler cache
 .cache
 .parcel-cache

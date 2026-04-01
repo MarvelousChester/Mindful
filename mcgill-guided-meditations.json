@@ -4,97 +4,196 @@
     {
       "title": "Breathing Meditation",
       "url": "https://mcgill.ca/wellness-hub/files/wellness-hub/breathing_meditation_0.mp3",
-      "category": "Up To 10 Minutes"
+      "language": "ENGLISH",
+      "category": [
+        "Up To 10 Minutes",
+        "Breathing"
+      ],
+      "duration_seconds": 303
     },
     {
       "title": "A Moment to Reflect",
       "url": "https://mcgill.ca/wellness-hub/files/wellness-hub/a_moment_to_reflect_1.mp3",
-      "category": "Up To 10 Minutes"
+      "language": "ENGLISH",
+      "category": [
+        "Up To 10 Minutes",
+        "Mindfulness"
+      ],
+      "duration_seconds": 330
     },
     {
       "title": "Ocean Imagery",
       "url": "https://mcgill.ca/wellness-hub/files/wellness-hub/ocean_imagery_0.mp3",
-      "category": "Up To 10 Minutes"
+      "language": "ENGLISH",
+      "category": [
+        "Up To 10 Minutes",
+        "Nature & Imagery"
+      ],
+      "duration_seconds": 356
     },
     {
       "title": "Compassionate Relaxation",
       "url": "https://mcgill.ca/wellness-hub/files/wellness-hub/compassionate_relaxation_0.mp3",
-      "category": "Up To 10 Minutes"
+      "language": "ENGLISH",
+      "category": [
+        "Up To 10 Minutes",
+        "Loving Kindness",
+        "Relaxation"
+      ],
+      "duration_seconds": 407
     },
     {
       "title": "La respiration en pleine conscience",
       "url": "https://mcgill.ca/wellness-hub/files/wellness-hub/la_respiration_en_pleine_conscience_0.mp3",
-      "category": "Up To 10 Minutes"
+      "language": "FRENCH",
+      "category": [
+        "Up To 10 Minutes",
+        "Breathing"
+      ],
+      "duration_seconds": 419
     },
     {
       "title": "Mountain Meditation",
       "url": "https://mcgill.ca/wellness-hub/files/wellness-hub/mountain_meditation.mp3",
-      "category": "Up To 10 Minutes"
+      "language": "ENGLISH",
+      "category": [
+        "Up To 10 Minutes",
+        "Nature & Imagery"
+      ],
+      "duration_seconds": 440
     },
     {
       "title": "The Compassionate Self",
       "url": "https://mcgill.ca/wellness-hub/files/wellness-hub/the_compassionate_self_0_0.mp3",
-      "category": "Up To 10 Minutes"
+      "language": "ENGLISH",
+      "category": [
+        "Up To 10 Minutes",
+        "Loving Kindness"
+      ],
+      "duration_seconds": 470
     },
     {
       "title": "Awareness Body Scan",
       "url": "https://mcgill.ca/wellness-hub/files/wellness-hub/awareness_body_scan.mp3",
-      "category": "Up To 10 Minutes"
+      "language": "ENGLISH",
+      "category": [
+        "Up To 10 Minutes",
+        "Body Scan",
+        "Mindfulness"
+      ],
+      "duration_seconds": 486
     },
     {
       "title": "Guided Relaxation to Sleep",
       "url": "https://mcgill.ca/wellness-hub/files/wellness-hub/guided_relaxation_to_sleep_0_0.mp3",
-      "category": "Up To 10 Minutes"
+      "language": "ENGLISH",
+      "category": [
+        "Up To 10 Minutes",
+        "Sleep",
+        "Relaxation"
+      ],
+      "duration_seconds": 576
     },
     {
       "title": "Awareness of Breath",
       "url": "https://staging.mcgill.ca/wellness-hub/files/wellness-hub/awareness_of_breath.mp3",
-      "category": "Up To 10 Minutes"
+      "language": "ENGLISH",
+      "category": [
+        "Up To 10 Minutes",
+        "Breathing",
+        "Mindfulness"
+      ],
+      "duration_seconds": null
     },
     {
       "title": "Mountain, Wind and Sky",
       "url": "https://mcgill.ca/wellness-hub/files/wellness-hub/mountain_wind_sky.mp3",
-      "category": "Up To 15 Minutes"
+      "language": "ENGLISH",
+      "category": [
+        "Up To 15 Minutes",
+        "Nature & Imagery"
+      ],
+      "duration_seconds": 606
     },
     {
       "title": "Yogic Breathing",
       "url": "https://mcgill.ca/wellness-hub/files/wellness-hub/yogic_breathing.mp3",
-      "category": "Up To 15 Minutes"
+      "language": "ENGLISH",
+      "category": [
+        "Up To 15 Minutes",
+        "Breathing"
+      ],
+      "duration_seconds": 644
     },
     {
       "title": "Wheel of Awareness",
       "url": "https://mcgill.ca/wellness-hub/files/wellness-hub/wheel_of_awareness.mp3",
-      "category": "Up To 15 Minutes"
+      "language": "ENGLISH",
+      "category": [
+        "Up To 15 Minutes",
+        "Mindfulness"
+      ],
+      "duration_seconds": 814
     },
     {
       "title": "Breaking the Anxiety Cycle",
       "url": "https://mcgill.ca/wellness-hub/files/wellness-hub/breaking_the_anxiety_cycle.mp3",
-      "category": "Up To 15 Minutes"
+      "language": "ENGLISH",
+      "category": [
+        "Up To 15 Minutes",
+        "Stress & Anxiety"
+      ],
+      "duration_seconds": 812
     },
     {
       "title": "Guided Imagery for Writing an Exam",
       "url": "https://mcgill.ca/wellness-hub/files/wellness-hub/guided_imagery_for_writing_an_exam_0.mp3",
-      "category": "Up To 15 Minutes"
+      "language": "ENGLISH",
+      "category": [
+        "Up To 15 Minutes",
+        "Nature & Imagery"
+      ],
+      "duration_seconds": 863
     },
     {
       "title": "Loving Kindness",
       "url": "https://mcgill.ca/wellness-hub/files/wellness-hub/loving_kindness.mp3",
-      "category": "Up To 15 Minutes"
+      "language": "ENGLISH",
+      "category": [
+        "Up To 15 Minutes",
+        "Loving Kindness"
+      ],
+      "duration_seconds": 884
     },
     {
       "title": "Finding Your Authentic Self",
       "url": "https://mcgill.ca/wellness-hub/files/wellness-hub/finding_your_authentic_self.mp3",
-      "category": "Up To 30 Minutes"
+      "language": "ENGLISH",
+      "category": [
+        "Up To 30 Minutes",
+        "Mindfulness"
+      ],
+      "duration_seconds": 968
     },
     {
       "title": "Relaxing Under Pressure",
       "url": "https://mcgill.ca/wellness-hub/files/wellness-hub/relaxing_under_pressure.mp3",
-      "category": "Up To 30 Minutes"
+      "language": "ENGLISH",
+      "category": [
+        "Up To 30 Minutes",
+        "Relaxation",
+        "Stress & Anxiety"
+      ],
+      "duration_seconds": 971
     },
     {
       "title": "Om Meditation",
       "url": "https://mcgill.ca/wellness-hub/files/wellness-hub/om_meditation.mp3",
-      "category": "Up To 30 Minutes"
+      "language": "ENGLISH",
+      "category": [
+        "Up To 30 Minutes"
+      ],
+      "duration_seconds": 1628
     }
   ]
 }

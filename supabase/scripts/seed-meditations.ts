@@ -204,7 +204,6 @@ async function main(): Promise<void> {
     duration_seconds: t.duration_seconds ?? null,
     language: t.language,
     audio_path: t.url,
-    thumbnail_path: null,
     school_id: t.schoolName === UCLA_SCHOOL_NAME ? uclaSchoolId : mcgillSchoolId,
   }));
 

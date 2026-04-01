@@ -12,7 +12,6 @@ const LIBRARY_TRACKS: Track[] = [
   {
     id: '1',
     title: 'Morning Clarity',
-    description: 'Start your day with a clear mind and focused energy.',
     duration: 10 * 60,
     language: 'English',
     category: ['Focus', 'Energy'],

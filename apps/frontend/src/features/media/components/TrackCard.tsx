@@ -67,7 +67,7 @@ export function TrackCard({ track, onSelect }: TrackCardProps) {
           {track.title}
         </h3>
         <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-1">
-          {track.description}
+          {track.university}
         </p>
       </div>
     </div>

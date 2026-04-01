@@ -1,13 +1,12 @@
 export interface Track {
   id: string;
   title: string;
-  description: string;
-  duration: number; // seconds
+  duration: number | null; // seconds, nullable in DB
   language: string;
-  audioUrl: string;
-  thumbnailUrl?: string;
-  university: string;
-  category: string[];
+  audioUrl: string;       // derived from tracks.audio_path
+  thumbnailUrl?: string;  // derived from schools.logo_path (Storage public URL)
+  university: string;     // derived from schools.name
+  category: string[];     // derived from track_categories → categories
 }
 
 export interface PlaybackState {

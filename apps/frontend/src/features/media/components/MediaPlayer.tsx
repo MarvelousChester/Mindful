@@ -93,9 +93,8 @@ function MediaPlayerContent({ track, onHistoryRecorded }: MediaPlayerContentProp
       audio.removeEventListener("timeupdate", onTimeUpdate);
       audio.removeEventListener("loadedmetadata", onLoadedMetadata);
       audio.removeEventListener("ended", onEnded);
-
       const elapsed = Math.floor(currentTimeRef.current);
-      if (elapsed >= 30) {
+      if (elapsed >= 1) {
         void postHistory(track.id, elapsed, onHistoryRecorded);
       }
 
@@ -120,6 +119,7 @@ function MediaPlayerContent({ track, onHistoryRecorded }: MediaPlayerContentProp
       audioRef.current.pause();
     } else {
       audioRef.current.play();
+      void postHistory(track.id, Math.floor(currentTimeRef.current), onHistoryRecorded);
     }
     setIsPlaying(!isPlaying);
   }

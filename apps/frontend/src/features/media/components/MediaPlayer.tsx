@@ -183,9 +183,13 @@ function MediaPlayerContent({ track, onHistoryRecorded }: MediaPlayerContentProp
     >
       <div className="flex items-center gap-4 w-full md:w-1/3">
         <div
-          className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center text-slate-700"
+          className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center text-slate-700 overflow-hidden shrink-0"
         >
-          <span className="material-icons">music_note</span>
+          {track.thumbnailUrl ? (
+            <img src={track.thumbnailUrl} alt={track.title} className="w-full h-full object-cover" />
+          ) : (
+            <span className="material-icons">music_note</span>
+          )}
         </div>
         <div>
           <h4 className="font-semibold text-sm leading-tight">

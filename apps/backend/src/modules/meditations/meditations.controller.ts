@@ -76,26 +76,33 @@ export const getMeditations = async (req: Request, res: Response) => {
     });
   }
 
-  // Map DB rows to the API response shape
-  let results = (data ?? []).map((row) => ({
-    id: row.id,
-    title: row.title,
-    duration: row.duration_seconds,
-    language: row.language,
-    audioUrl: row.audio_path,
-    thumbnailUrl: undefined,
-    university: (row.schools as unknown as { name: string } | null)?.name ?? '',
-    categories: (
-      (row.track_categories as unknown as { categories: { name: string } | null }[]) ?? []
-    )
-      .map((tc) => tc.categories?.name)
-      .filter(Boolean) as string[],
-  }));
+  let results = (data || []).map((row: any) => {
+    let rawLogo = row.schools ? row.schools.logo_path : null;
+    let universityLogo = undefined;
+    
+    if (rawLogo) {
+      universityLogo = supabase.storage.from('schools').getPublicUrl(rawLogo).data.publicUrl;
+    }
+
+    let trackCategories = row.track_categories || [];
+    let categoriesList = trackCategories.map((tc: any) => tc.categories?.name).filter(Boolean);
+
+    return {
+      id: row.id,
+      title: row.title,
+      duration: row.duration_seconds,
+      language: row.language,
+      audioUrl: row.audio_path,
+      thumbnailUrl: universityLogo,
+      university: row.schools?.name || '',
+      categories: categoriesList,
+    };
+  });
 
   if (category) {
     const normalised = category.toLowerCase();
     results = results.filter((r) =>
-      r.categories.some((c) => c.toLowerCase() === normalised),
+      r.categories.some((c: string) => c.toLowerCase() === normalised),
     );
   }
 
@@ -144,6 +151,16 @@ export const getMeditationById = async (req: Request, res: Response) => {
     });
   }
 
+  let rawLogo = (data.schools as any)?.logo_path;
+  let universityLogo = undefined;
+  
+  if (rawLogo) {
+    universityLogo = supabase.storage.from('schools').getPublicUrl(rawLogo).data.publicUrl;
+  }
+
+  let dataCategories = (data.track_categories as any) || [];
+  let categoriesList = dataCategories.map((tc: any) => tc.categories?.name).filter(Boolean);
+
   return res.status(200).json({
     success: true,
     data: {
@@ -152,13 +169,9 @@ export const getMeditationById = async (req: Request, res: Response) => {
       duration: data.duration_seconds,
       language: data.language,
       audioUrl: data.audio_path,
-      thumbnailUrl: undefined,
-      university: (data.schools as unknown as { name: string } | null)?.name ?? '',
-      categories: (
-        (data.track_categories as unknown as { categories: { name: string } | null }[]) ?? []
-      )
-        .map((tc) => tc.categories?.name)
-        .filter(Boolean) as string[],
+      thumbnailUrl: universityLogo,
+      university: (data.schools as any)?.name || '',
+      categories: categoriesList,
     },
   });
 };

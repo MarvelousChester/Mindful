@@ -93,10 +93,20 @@ export const getHistory = async (req: Request, res: Response) => {
     });
   }
 
-  const results = (data ?? [])
-    .map((row) => {
-      const track = row.tracks as unknown as TrackJoinRow | null;
+  let results = (data || [])
+    .map((row: any) => {
+      let track = row.tracks;
       if (!track) return null;
+
+      let rawLogo = track.schools ? track.schools.logo_path : null;
+      let universityLogo = undefined;
+      
+      if (rawLogo) {
+        universityLogo = supabase.storage.from('schools').getPublicUrl(rawLogo).data.publicUrl;
+      }
+
+      let trackCategories = track.track_categories || [];
+      let categoriesList = trackCategories.map((tc: any) => tc.categories?.name).filter(Boolean);
 
       return {
         id: track.id,
@@ -104,12 +114,10 @@ export const getHistory = async (req: Request, res: Response) => {
         duration: track.duration_seconds,
         language: track.language,
         audioUrl: track.audio_path,
-        thumbnailUrl: undefined,
-        university: track.schools?.name ?? '',
-        categories: (track.track_categories ?? [])
-          .map((tc) => tc.categories?.name)
-          .filter(Boolean) as string[],
-        listenedAt: row.listened_at as string,
+        thumbnailUrl: universityLogo,
+        university: track.schools?.name || '',
+        categories: categoriesList,
+        listenedAt: row.listened_at,
       };
     })
     .filter(Boolean);

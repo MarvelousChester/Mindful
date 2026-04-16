@@ -1,0 +1,164 @@
+/**
+ * @filename meditations.controller.ts
+ * @date 2026-04-15
+ * @author Jasmine Kaur
+ * @fileoverview Controller for meditation discovery endpoints
+ * @version 1.0.0
+ */
+
+import type { Request, Response } from 'express';
+import { getMeditationsQuerySchema } from 'shared';
+import { createSupabaseServerClient } from '../../lib/supabase.js';
+
+/**
+ * Function: getMeditations
+ * Description: Returns a paginated, optionally filtered list of tracks.
+ *   - ?search=  filters by title (case-insensitive)
+ *   - ?category= filters by category name
+ *   - ?page= and ?limit= control pagination
+ * Params:
+ * - req: Express request with optional query params
+ * - res: Express response
+ * Returns:
+ * - 200 with { success: true, data: Track[] }
+ * - 400 if query params fail Zod validation
+ * - 500 on unexpected database error
+ */
+export const getMeditations = async (req: Request, res: Response) => {
+  //Validate query params with the shared Zod schema
+  const parsed = getMeditationsQuerySchema.safeParse(req.query);
+  if (!parsed.success) {
+    return res.status(400).json({
+      success: false,
+      message: 'Invalid query parameters',
+      error: parsed.error.flatten(),
+    });
+  }
+
+  const { search, category, page, limit } = parsed.data;
+
+  //Build the Supabase query — join schools and categories
+  const supabase = createSupabaseServerClient();
+
+  let query = supabase
+    .from('tracks')
+    .select(
+      `
+      id,
+      title,
+      duration_seconds,
+      language,
+      audio_path,
+      schools ( name, logo_path ),
+      track_categories ( categories ( name ) )
+    `,
+    )
+    .order('created_at', { ascending: false });
+
+  // Apply optional filters
+  if (search) {
+    query = query.ilike('title', `%${search}%`);
+  }
+
+  // Apply pagination
+  const from = (page - 1) * limit;
+  const to = from + limit - 1;
+  query = query.range(from, to);
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error('[getMeditations] Supabase error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to fetch meditations',
+      detail: error.message,
+    });
+  }
+
+  // Map DB rows to the API response shape
+  let results = (data ?? []).map((row) => ({
+    id: row.id,
+    title: row.title,
+    duration: row.duration_seconds,
+    language: row.language,
+    audioUrl: row.audio_path,
+    thumbnailUrl: undefined,
+    university: (row.schools as unknown as { name: string } | null)?.name ?? '',
+    categories: (
+      (row.track_categories as unknown as { categories: { name: string } | null }[]) ?? []
+    )
+      .map((tc) => tc.categories?.name)
+      .filter(Boolean) as string[],
+  }));
+
+  if (category) {
+    const normalised = category.toLowerCase();
+    results = results.filter((r) =>
+      r.categories.some((c) => c.toLowerCase() === normalised),
+    );
+  }
+
+  return res.status(200).json({
+    success: true,
+    data: results,
+  });
+};
+
+/**
+ * Function: getMeditationById
+ * Description: Returns the full details of a single track by its UUID.
+ * Params:
+ * - req: Express request with :id route param
+ * - res: Express response
+ * Returns:
+ * - 200 with { success: true, data: Track }
+ * - 404 if no track matches the given id
+ * - 500 on unexpected database error
+ */
+export const getMeditationById = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const supabase = createSupabaseServerClient();
+
+  const { data, error } = await supabase
+    .from('tracks')
+    .select(
+      `
+      id,
+      title,
+      duration_seconds,
+      language,
+      audio_path,
+      schools ( name, logo_path ),
+      track_categories ( categories ( name ) )
+    `,
+    )
+    .eq('id', id)
+    .single();
+
+  if (error || !data) {
+    return res.status(404).json({
+      success: false,
+      message: 'Meditation not found',
+    });
+  }
+
+  return res.status(200).json({
+    success: true,
+    data: {
+      id: data.id,
+      title: data.title,
+      duration: data.duration_seconds,
+      language: data.language,
+      audioUrl: data.audio_path,
+      thumbnailUrl: undefined,
+      university: (data.schools as unknown as { name: string } | null)?.name ?? '',
+      categories: (
+        (data.track_categories as unknown as { categories: { name: string } | null }[]) ?? []
+      )
+        .map((tc) => tc.categories?.name)
+        .filter(Boolean) as string[],
+    },
+  });
+};

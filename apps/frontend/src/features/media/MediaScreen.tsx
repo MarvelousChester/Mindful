@@ -1,44 +1,92 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { AppHeader } from '../../components/AppHeader'
 import { CategoryFilter } from './components/CategoryFilter'
 import { MediaPlayer } from './components/MediaPlayer'
 import { TrackCard } from './components/TrackCard'
+import { apiFetch } from '../../lib/api'
 import type { Track } from './types'
 
 type View = 'library' | 'history'
 
-// Placeholder data — will be replaced with real fetched data
-const LIBRARY_TRACKS: Track[] = [
-  {
-    id: '1',
-    title: 'Morning Clarity',
-    duration: 10 * 60,
-    language: 'English',
-    category: ['Focus', 'Energy'],
-    audioUrl: 'https://example.com/audio/morning-clarity.mp3',
-    thumbnailUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDn5mVOeriKqmhufhGqrSAnWoVlCsh_DLGNOa4GOjkqG0iOKrZEt3vwE0NHntF7F4EJh-o3f8CPFsNBtdYhTPhxVdePv5bXVduG3F_wJwaDf1-W-he7XxBJWjaxoH0BLzjlVdjJf3wca1yZKpzvD2_WQIrX09jbhcR0JiGnoq4iPmaICy4DWZrXks5gRg9A23u_MYLsxQmBlM7LfPcG1n2qg7RhWQD7WnDYKtTcZtbt8PbcuSTxehbv-2rJlD_PzeLF90TuQfF1dA',
-    university: 'Mindful University',
-  },
-]
+/** Shape returned by GET /api/meditations */
+interface MeditationApiItem {
+  id: string
+  title: string
+  duration: number | null
+  language: string
+  audioUrl: string
+  thumbnailUrl?: string
+  university: string
+  categories: string[]
+}
 
-const HISTORY_TRACKS: Track[] = []
+/** Map the API response shape to the frontend Track type */
+function mapToTrack(item: MeditationApiItem): Track {
+  return {
+    id: item.id,
+    title: item.title,
+    duration: item.duration,
+    language: item.language,
+    audioUrl: item.audioUrl,
+    thumbnailUrl: item.thumbnailUrl,
+    university: item.university,
+    category: item.categories,
+  }
+}
 
 export const MediaScreen = () => {
   const [selectedTrack, setSelectedTrack] = useState<Track | null>(null)
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+  const [searchQuery, setSearchQuery] = useState('')
   const [view, setView] = useState<View>('library')
 
-  const tracks = view === 'library' ? LIBRARY_TRACKS : HISTORY_TRACKS
+  // Library state
+  const [libraryTracks, setLibraryTracks] = useState<Track[]>([])
+  const [libraryLoading, setLibraryLoading] = useState(true)
+  const [libraryError, setLibraryError] = useState<string | null>(null)
+
+  // Fetch library tracks from the backend on mount
+  useEffect(() => {
+    setLibraryLoading(true)
+    setLibraryError(null)
+
+    apiFetch<{ success: boolean; data: MeditationApiItem[] }>('/api/meditations?limit=50')
+      .then((res) => setLibraryTracks(res.data.map(mapToTrack)))
+      .catch((err: Error) => setLibraryError(err.message))
+      .finally(() => setLibraryLoading(false))
+  }, [])
+
+  const historyTracks: Track[] = []
+
+  const rawTracks = view === 'library' ? libraryTracks : historyTracks
+
+  // Apply search filter client-side
+  const searchFiltered = useMemo(() => {
+    if (!searchQuery.trim()) return rawTracks
+    const q = searchQuery.toLowerCase()
+    return rawTracks.filter((t) => t.title.toLowerCase().includes(q))
+  }, [rawTracks, searchQuery])
+
+  // Apply category filter client-side
+  const tracks = useMemo(() => {
+    if (selectedCategories.length === 0) return searchFiltered
+    return searchFiltered.filter((t) =>
+      selectedCategories.every((cat) => t.category.includes(cat)),
+    )
+  }, [searchFiltered, selectedCategories])
 
   const availableCategories = useMemo(
-    () => [...new Set(tracks.flatMap((t) => t.category))].sort(),
-    [tracks],
+    () => [...new Set(rawTracks.flatMap((t) => t.category))].sort(),
+    [rawTracks],
   )
 
   function handleViewChange(next: View) {
     setView(next)
     setSelectedCategories([])
+    setSearchQuery('')
   }
+
+  const isLoading = view === 'library' && libraryLoading
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#f4f6f5] text-slate-900">
@@ -76,12 +124,30 @@ export const MediaScreen = () => {
 
         <div className="relative w-full mb-4">
           <span className="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">search</span>
-          <input className="w-full pl-12 pr-4 py-4 bg-white border-none rounded-2xl shadow-sm focus:ring-2 focus:ring-primary transition-all outline-none text-slate-700" placeholder="Search for a practice..." type="text" />
+          <input
+            className="w-full pl-12 pr-4 py-4 bg-white border-none rounded-2xl shadow-sm focus:ring-2 focus:ring-primary transition-all outline-none text-slate-700"
+            placeholder="Search for a practice..."
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
         </div>
+
+        {/* Error banner */}
+        {libraryError && view === 'library' && (
+          <div className="mb-4 px-4 py-3 bg-red-50 border border-red-200 text-red-600 rounded-xl text-sm">
+            Failed to load tracks: {libraryError}
+          </div>
+        )}
 
         <div className="flex flex-col md:flex-row gap-4 items-start">
           <div className={`w-full grid grid-cols-1 gap-4 ${tracks.length > 0 ? 'md:w-[70%]' : ''}`}>
-            {tracks.length === 0 ? (
+            {isLoading ? (
+              <div className="flex flex-col items-center justify-center py-20 text-slate-400 gap-3">
+                <span className="material-icons text-5xl animate-spin">sync</span>
+                <p className="text-sm">Loading tracks...</p>
+              </div>
+            ) : tracks.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-20 text-slate-400 gap-3">
                 <span className="material-icons text-5xl">{view === 'history' ? 'history' : 'library_music'}</span>
                 <p className="text-sm">

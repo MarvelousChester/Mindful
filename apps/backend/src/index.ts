@@ -12,6 +12,7 @@ import cors from 'cors';
 
 import { env } from './config/env.js';
 import authRouter from './modules/auth/auth.routes.js';
+import meditationsRouter from './modules/meditations/meditations.routes.js';
 
 const app: express.Application = express();
 const port = env.PORT ?? 3001;
@@ -20,6 +21,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', authRouter);
+app.use('/api/meditations', meditationsRouter);
 
 /**
  * Function: healthCheck

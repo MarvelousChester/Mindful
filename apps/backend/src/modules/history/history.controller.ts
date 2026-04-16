@@ -157,11 +157,37 @@ export const recordHistory = async (req: Request, res: Response) => {
     return res.status(401).json({ success: false, message: 'Invalid token' });
   }
 
-  const { error } = await supabase.from('listening_history').insert({
-    user_id: user.id,
-    track_id: meditationId,
-    progress_seconds: listenedDuration,
-  });
+  const { data: existingRecords } = await supabase
+    .from('listening_history')
+    .select('id')
+    .eq('user_id', user.id)
+    .eq('track_id', meditationId)
+    .order('listened_at', { ascending: false })
+    .limit(1);
+
+  const existing = existingRecords && existingRecords.length > 0 ? existingRecords[0] : null;
+
+  let error;
+
+  if (existing) {
+    const { error: updateError } = await supabase
+      .from('listening_history')
+      .update({
+        progress_seconds: listenedDuration,
+        listened_at: new Date().toISOString(),
+      })
+      .eq('id', existing.id);
+    error = updateError;
+  } else {
+    const { error: insertError } = await supabase
+      .from('listening_history')
+      .insert({
+        user_id: user.id,
+        track_id: meditationId,
+        progress_seconds: listenedDuration,
+      });
+    error = insertError;
+  }
 
   if (error) {
     console.error('[recordHistory] Supabase error:', error);

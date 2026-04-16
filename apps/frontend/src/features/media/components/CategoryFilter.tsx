@@ -23,9 +23,9 @@ export function CategoryFilter({ categories, selected, onChange }: CategoryFilte
    */
   function handleToggle(value: string) {
     if (selected.includes(value)) {
-      onChange(selected.filter((v) => v !== value))
+      onChange([])
     } else {
-      onChange([...selected, value])
+      onChange([value])
     }
   }
 

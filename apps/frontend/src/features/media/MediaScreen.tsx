@@ -1,14 +1,14 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { AppHeader } from '../../components/AppHeader'
 import { CategoryFilter } from './components/CategoryFilter'
 import { MediaPlayer } from './components/MediaPlayer'
 import { TrackCard } from './components/TrackCard'
-import { apiFetch } from '../../lib/api'
+import { apiFetch, authFetch } from '../../lib/api'
 import type { Track } from './types'
 
 type View = 'library' | 'history'
 
-/** Shape returned by GET /api/meditations */
+/** Shape returned by GET /api/meditations and GET /api/history */
 interface MeditationApiItem {
   id: string
   title: string
@@ -40,12 +40,10 @@ export const MediaScreen = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [view, setView] = useState<View>('library')
 
-  // Library state
   const [libraryTracks, setLibraryTracks] = useState<Track[]>([])
   const [libraryLoading, setLibraryLoading] = useState(true)
   const [libraryError, setLibraryError] = useState<string | null>(null)
 
-  // Fetch library tracks from the backend on mount
   useEffect(() => {
     setLibraryLoading(true)
     setLibraryError(null)
@@ -56,18 +54,42 @@ export const MediaScreen = () => {
       .finally(() => setLibraryLoading(false))
   }, [])
 
-  const historyTracks: Track[] = []
+  // History state
+  const [historyTracks, setHistoryTracks] = useState<Track[]>([])
+  const [historyLoading, setHistoryLoading] = useState(false)
+  const [historyError, setHistoryError] = useState<string | null>(null)
+  const [historyVersion, setHistoryVersion] = useState(0)
 
+  useEffect(() => {
+    if (view !== 'history' && historyVersion === 0) return
+
+    setHistoryLoading(true)
+    setHistoryError(null)
+
+    authFetch<{ success: boolean; data: MeditationApiItem[] }>('/api/history')
+      .then((res) => setHistoryTracks(res.data.map(mapToTrack)))
+      .catch((err: Error) => setHistoryError(err.message))
+      .finally(() => setHistoryLoading(false))
+  }, [view, historyVersion])
+
+  /**
+   * Function: handleHistoryRecorded
+   * Description: Called by MediaPlayer after a successful POST to /api/history.
+   * Returns: void
+   */
+  const handleHistoryRecorded = useCallback(() => {
+    setHistoryVersion((v) => v + 1)
+  }, [])
+
+  // Filtering
   const rawTracks = view === 'library' ? libraryTracks : historyTracks
 
-  // Apply search filter client-side
   const searchFiltered = useMemo(() => {
     if (!searchQuery.trim()) return rawTracks
     const q = searchQuery.toLowerCase()
     return rawTracks.filter((t) => t.title.toLowerCase().includes(q))
   }, [rawTracks, searchQuery])
 
-  // Apply category filter client-side
   const tracks = useMemo(() => {
     if (selectedCategories.length === 0) return searchFiltered
     return searchFiltered.filter((t) =>
@@ -86,7 +108,11 @@ export const MediaScreen = () => {
     setSearchQuery('')
   }
 
-  const isLoading = view === 'library' && libraryLoading
+  const isLoading =
+    (view === 'library' && libraryLoading) ||
+    (view === 'history' && historyLoading)
+
+  const activeError = view === 'library' ? libraryError : historyError
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#f4f6f5] text-slate-900">
@@ -134,9 +160,9 @@ export const MediaScreen = () => {
         </div>
 
         {/* Error banner */}
-        {libraryError && view === 'library' && (
+        {activeError && (
           <div className="mb-4 px-4 py-3 bg-red-50 border border-red-200 text-red-600 rounded-xl text-sm">
-            Failed to load tracks: {libraryError}
+            Failed to load tracks: {activeError}
           </div>
         )}
 
@@ -174,7 +200,7 @@ export const MediaScreen = () => {
       </div>
 
       <footer className="fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-xl border-t border-primary/20 px-6 py-4 z-50">
-        <MediaPlayer track={selectedTrack} />
+        <MediaPlayer track={selectedTrack} onHistoryRecorded={handleHistoryRecorded} />
       </footer>
     </div>
   )

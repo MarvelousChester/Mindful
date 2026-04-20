@@ -60,6 +60,7 @@ function MediaPlayerContent({ track, onHistoryRecorded }: MediaPlayerContentProp
   const [duration, setDuration] = useState(0);
 
   const currentTimeRef = useRef(0);
+  const historyPostedRef = useRef(false);
 
   useEffect(() => {
     const audio = new Audio(track.audioUrl);
@@ -77,6 +78,7 @@ function MediaPlayerContent({ track, onHistoryRecorded }: MediaPlayerContentProp
      */
     const onEnded = () => {
       setIsPlaying(false);
+      historyPostedRef.current = true;
       void postHistory(
         track.id,
         Math.floor(audio.duration || 0),
@@ -94,7 +96,7 @@ function MediaPlayerContent({ track, onHistoryRecorded }: MediaPlayerContentProp
       audio.removeEventListener("loadedmetadata", onLoadedMetadata);
       audio.removeEventListener("ended", onEnded);
       const elapsed = Math.floor(currentTimeRef.current);
-      if (elapsed >= 1) {
+      if (elapsed >= 1 && !historyPostedRef.current) {
         void postHistory(track.id, elapsed, onHistoryRecorded);
       }
 
@@ -119,7 +121,6 @@ function MediaPlayerContent({ track, onHistoryRecorded }: MediaPlayerContentProp
       audioRef.current.pause();
     } else {
       audioRef.current.play();
-      void postHistory(track.id, Math.floor(currentTimeRef.current), onHistoryRecorded);
     }
     setIsPlaying(!isPlaying);
   }

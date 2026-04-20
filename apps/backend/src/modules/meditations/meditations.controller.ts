@@ -60,6 +60,35 @@ export const getMeditations = async (req: Request, res: Response) => {
     query = query.ilike('title', `%${search}%`);
   }
 
+  // Apply category filter at database level before pagination
+  let trackIdsForCategory: string[] | null = null;
+  if (category) {
+    const { data: categoryData } = await supabase
+      .from('categories')
+      .select('id')
+      .ilike('name', category)
+      .single();
+
+    if (categoryData) {
+      const { data: trackCategoriesData } = await supabase
+        .from('track_categories')
+        .select('track_id')
+        .eq('category_id', categoryData.id);
+
+      trackIdsForCategory = trackCategoriesData?.map((tc: any) => tc.track_id) || [];
+    }
+
+    if (trackIdsForCategory && trackIdsForCategory.length > 0) {
+      query = query.in('id', trackIdsForCategory);
+    } else {
+      // No tracks match the category, return empty results
+      return res.status(200).json({
+        success: true,
+        data: [],
+      });
+    }
+  }
+
   // Apply pagination
   const from = (page - 1) * limit;
   const to = from + limit - 1;
@@ -98,13 +127,6 @@ export const getMeditations = async (req: Request, res: Response) => {
       categories: categoriesList,
     };
   });
-
-  if (category) {
-    const normalised = category.toLowerCase();
-    results = results.filter((r) =>
-      r.categories.some((c: string) => c.toLowerCase() === normalised),
-    );
-  }
 
   return res.status(200).json({
     success: true,

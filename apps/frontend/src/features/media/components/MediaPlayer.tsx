@@ -102,7 +102,7 @@ function MediaPlayerContent({ track, onHistoryRecorded }: MediaPlayerContentProp
 
       audioRef.current = null;
     };
-  }, [track.audioUrl]);
+  }, [track.audioUrl, track.id, onHistoryRecorded]);
 
   useEffect(() => {
     if (!audioRef.current) return;

@@ -63,6 +63,7 @@ function MediaPlayerContent({
   autoPlayRequestId,
   onHistoryRecorded,
 }: MediaPlayerContentProps) {
+  const SEEK_STEP_SECONDS = 10;
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.67);
@@ -204,6 +205,17 @@ function MediaPlayerContent({
     setCurrentTime(newTime);
   }
 
+  function handleSkip(offsetSeconds: number) {
+    if (!audioRef.current) return;
+    const maxTime = Number.isFinite(audioRef.current.duration) ? audioRef.current.duration : Infinity;
+    const newTime = Math.max(
+      0,
+      Math.min(maxTime, audioRef.current.currentTime + offsetSeconds),
+    );
+    audioRef.current.currentTime = newTime;
+    setCurrentTime(newTime);
+  }
+
   return (
     <div
       className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-6"
@@ -227,7 +239,12 @@ function MediaPlayerContent({
       </div>
       <div className="flex flex-col items-center gap-2 w-full md:w-1/3">
         <div className="flex items-center gap-8 pt-3">
-          <button className="text-slate-400 hover:text-primary transition-colors">
+          <button
+            type="button"
+            onClick={() => handleSkip(-SEEK_STEP_SECONDS)}
+            aria-label="Back 10 seconds"
+            className="text-slate-400 hover:text-primary transition-colors"
+          >
             <span className="material-icons">replay_10</span>
           </button>
           <button
@@ -236,7 +253,12 @@ function MediaPlayerContent({
           >
             <span className="material-icons text-3xl">{isPlaying ? "pause" : "play_arrow"}</span>
           </button>
-          <button className="text-slate-400 hover:text-primary transition-colors">
+          <button
+            type="button"
+            onClick={() => handleSkip(SEEK_STEP_SECONDS)}
+            aria-label="Forward 10 seconds"
+            className="text-slate-400 hover:text-primary transition-colors"
+          >
             <span className="material-icons">forward_10</span>
           </button>
         </div>

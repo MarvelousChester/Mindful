@@ -4,16 +4,22 @@ import { authFetch } from "../../../lib/api";
 
 interface MediaPlayerProps {
   track: Track | null;
+  autoPlayRequestId?: number;
   onHistoryRecorded?: () => void;
 }
 
-export function MediaPlayer({ track, onHistoryRecorded }: MediaPlayerProps) {
+export function MediaPlayer({
+  track,
+  autoPlayRequestId,
+  onHistoryRecorded,
+}: MediaPlayerProps) {
   if (!track) return null;
 
   return (
     <MediaPlayerContent
       key={track.audioUrl ?? track.id}
       track={track}
+      autoPlayRequestId={autoPlayRequestId}
       onHistoryRecorded={onHistoryRecorded}
     />
   );
@@ -48,10 +54,15 @@ async function postHistory(
 
 interface MediaPlayerContentProps {
   track: Track;
+  autoPlayRequestId?: number;
   onHistoryRecorded?: () => void;
 }
 
-function MediaPlayerContent({ track, onHistoryRecorded }: MediaPlayerContentProps) {
+function MediaPlayerContent({
+  track,
+  autoPlayRequestId,
+  onHistoryRecorded,
+}: MediaPlayerContentProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.67);
@@ -71,6 +82,8 @@ function MediaPlayerContent({ track, onHistoryRecorded }: MediaPlayerContentProp
       setCurrentTime(audio.currentTime);
     };
     const onLoadedMetadata = () => setDuration(audio.duration);
+    const onPlay = () => setIsPlaying(true);
+    const onPause = () => setIsPlaying(false);
 
     /**
      * onEnded fires when the track plays to completion.
@@ -89,12 +102,16 @@ function MediaPlayerContent({ track, onHistoryRecorded }: MediaPlayerContentProp
     audio.addEventListener("timeupdate", onTimeUpdate);
     audio.addEventListener("loadedmetadata", onLoadedMetadata);
     audio.addEventListener("ended", onEnded);
+    audio.addEventListener("play", onPlay);
+    audio.addEventListener("pause", onPause);
 
     return () => {
       audio.pause();
       audio.removeEventListener("timeupdate", onTimeUpdate);
       audio.removeEventListener("loadedmetadata", onLoadedMetadata);
       audio.removeEventListener("ended", onEnded);
+      audio.removeEventListener("play", onPlay);
+      audio.removeEventListener("pause", onPause);
       const elapsed = Math.floor(currentTimeRef.current);
       if (elapsed >= 1 && !historyPostedRef.current) {
         void postHistory(track.id, elapsed, onHistoryRecorded);
@@ -109,6 +126,14 @@ function MediaPlayerContent({ track, onHistoryRecorded }: MediaPlayerContentProp
     audioRef.current.volume = isMuted ? 0 : volume;
   }, [volume, isMuted]);
 
+  useEffect(() => {
+    if (!audioRef.current || autoPlayRequestId == null) return;
+
+    void audioRef.current.play().catch((err) => {
+      console.warn("[MediaPlayer] Failed to autoplay track:", err);
+    });
+  }, [autoPlayRequestId]);
+
   /**
    * Function: togglePlay
    * Description: Toggles audio playback between playing and paused states.
@@ -120,9 +145,10 @@ function MediaPlayerContent({ track, onHistoryRecorded }: MediaPlayerContentProp
     if (isPlaying) {
       audioRef.current.pause();
     } else {
-      audioRef.current.play();
+      void audioRef.current.play().catch((err) => {
+        console.warn("[MediaPlayer] Failed to play track:", err);
+      });
     }
-    setIsPlaying(!isPlaying);
   }
 
   /**

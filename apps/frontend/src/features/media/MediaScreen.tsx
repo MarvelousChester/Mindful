@@ -36,6 +36,7 @@ function mapToTrack(item: MeditationApiItem): Track {
 
 export const MediaScreen = () => {
   const [selectedTrack, setSelectedTrack] = useState<Track | null>(null)
+  const [autoPlayRequestId, setAutoPlayRequestId] = useState(0)
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [searchQuery, setSearchQuery] = useState('')
   const [view, setView] = useState<View>('library')
@@ -45,9 +46,6 @@ export const MediaScreen = () => {
   const [libraryError, setLibraryError] = useState<string | null>(null)
 
   useEffect(() => {
-    setLibraryLoading(true)
-    setLibraryError(null)
-
     apiFetch<{ success: boolean; data: MeditationApiItem[] }>('/api/meditations?limit=50')
       .then((res) => setLibraryTracks(res.data.map(mapToTrack)))
       .catch((err: Error) => setLibraryError(err.message))
@@ -63,9 +61,6 @@ export const MediaScreen = () => {
   useEffect(() => {
     if (view !== 'history' && historyVersion === 0) return
 
-    setHistoryLoading(true)
-    setHistoryError(null)
-
     authFetch<{ success: boolean; data: MeditationApiItem[] }>('/api/history')
       .then((res) => setHistoryTracks(res.data.map(mapToTrack)))
       .catch((err: Error) => setHistoryError(err.message))
@@ -78,8 +73,12 @@ export const MediaScreen = () => {
    * Returns: void
    */
   const handleHistoryRecorded = useCallback(() => {
+    if (view === 'history') {
+      setHistoryLoading(true)
+      setHistoryError(null)
+    }
     setHistoryVersion((v) => v + 1)
-  }, [])
+  }, [view])
 
   // Filtering
   const rawTracks = view === 'library' ? libraryTracks : historyTracks
@@ -106,6 +105,15 @@ export const MediaScreen = () => {
     setView(next)
     setSelectedCategories([])
     setSearchQuery('')
+    if (next === 'history') {
+      setHistoryLoading(true)
+      setHistoryError(null)
+    }
+  }
+
+  function handleTrackSelect(track: Track) {
+    setSelectedTrack(track)
+    setAutoPlayRequestId((id) => id + 1)
   }
 
   const isLoading =
@@ -182,7 +190,11 @@ export const MediaScreen = () => {
               </div>
             ) : (
               tracks.map((track) => (
-                <TrackCard key={track.id} track={track} onSelect={setSelectedTrack} />
+                <TrackCard
+                  key={track.id}
+                  track={track}
+                  onSelect={handleTrackSelect}
+                />
               ))
             )}
           </div>
@@ -200,7 +212,11 @@ export const MediaScreen = () => {
       </div>
 
       <footer className="fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-xl border-t border-primary/20 px-6 py-4 z-50">
-        <MediaPlayer track={selectedTrack} onHistoryRecorded={handleHistoryRecorded} />
+        <MediaPlayer
+          track={selectedTrack}
+          autoPlayRequestId={autoPlayRequestId}
+          onHistoryRecorded={handleHistoryRecorded}
+        />
       </footer>
     </div>
   )

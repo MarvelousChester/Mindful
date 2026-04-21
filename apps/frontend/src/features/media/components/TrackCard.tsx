@@ -43,7 +43,9 @@ export function TrackCard({ track, onSelect }: TrackCardProps) {
             <span className="material-icons text-slate-500">music_note</span>
           </div>
         )}
-        <div className="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+        <div
+          className="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+        >
           <span className="material-icons text-slate-800">play_arrow</span>
         </div>
       </div>

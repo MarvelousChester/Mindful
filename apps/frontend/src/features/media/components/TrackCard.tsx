@@ -17,6 +17,11 @@ function formatDuration(seconds: number): string {
   return `${m} min`
 }
 
+function getLanguageLabel(language: string): string {
+  const value = language.trim()
+  return value.length > 0 ? value : 'Unknown'
+}
+
 /**
  * Function: TrackCard
  * Description: Displays a single meditation track with thumbnail, metadata, and play-on-hover overlay.
@@ -26,6 +31,8 @@ function formatDuration(seconds: number): string {
  * Returns: A JSX card element
  */
 export function TrackCard({ track, onSelect }: TrackCardProps) {
+  const languageLabel = getLanguageLabel(track.language)
+
   return (
     <div
       onClick={() => onSelect(track)}
@@ -52,6 +59,9 @@ export function TrackCard({ track, onSelect }: TrackCardProps) {
 
       <div className="grow min-w-0">
         <div className="flex items-center gap-3 mb-1">
+          <span className="px-2 py-0.5 bg-slate-200 text-slate-700 text-[10px] font-bold uppercase tracking-wider rounded">
+            {languageLabel}
+          </span>
           {track.category.map((cat) => (
             <span
               key={cat}

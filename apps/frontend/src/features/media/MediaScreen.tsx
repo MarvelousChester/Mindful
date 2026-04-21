@@ -20,6 +20,11 @@ interface MeditationApiItem {
   categories: string[]
 }
 
+function normalizeLanguage(language: string): string {
+  const value = language.trim()
+  return value.length > 0 ? value : 'Unknown'
+}
+
 /** Map the API response shape to the frontend Track type */
 function mapToTrack(item: MeditationApiItem): Track {
   return {
@@ -38,6 +43,7 @@ export const MediaScreen = () => {
   const [selectedTrack, setSelectedTrack] = useState<Track | null>(null)
   const [autoPlayRequestId, setAutoPlayRequestId] = useState(0)
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+  const [selectedLanguages, setSelectedLanguages] = useState<string[]>([])
   const [searchQuery, setSearchQuery] = useState('')
   const [view, setView] = useState<View>('library')
 
@@ -90,20 +96,33 @@ export const MediaScreen = () => {
   }, [rawTracks, searchQuery])
 
   const tracks = useMemo(() => {
-    if (selectedCategories.length === 0) return searchFiltered
-    return searchFiltered.filter((t) =>
-      selectedCategories.every((cat) => t.category.includes(cat)),
-    )
-  }, [searchFiltered, selectedCategories])
+    return searchFiltered.filter((track) => {
+      const matchesCategory =
+        selectedCategories.length === 0 ||
+        selectedCategories.every((category) => track.category.includes(category))
+
+      const language = normalizeLanguage(track.language)
+      const matchesLanguage =
+        selectedLanguages.length === 0 || selectedLanguages.includes(language)
+
+      return matchesCategory && matchesLanguage
+    })
+  }, [searchFiltered, selectedCategories, selectedLanguages])
 
   const availableCategories = useMemo(
     () => [...new Set(rawTracks.flatMap((t) => t.category))].sort(),
     [rawTracks],
   )
 
+  const availableLanguages = useMemo(
+    () => [...new Set(rawTracks.map((track) => normalizeLanguage(track.language)))].sort(),
+    [rawTracks],
+  )
+
   function handleViewChange(next: View) {
     setView(next)
     setSelectedCategories([])
+    setSelectedLanguages([])
     setSearchQuery('')
     if (next === 'history') {
       setHistoryLoading(true)
@@ -205,6 +224,9 @@ export const MediaScreen = () => {
                 categories={availableCategories}
                 selected={selectedCategories}
                 onChange={setSelectedCategories}
+                languages={availableLanguages}
+                selectedLanguages={selectedLanguages}
+                onLanguageChange={setSelectedLanguages}
               />
             </div>
           )}

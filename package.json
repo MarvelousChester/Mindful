@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev:frontend": "pnpm --filter frontend dev",
     "dev:backend": "pnpm --filter backend dev",

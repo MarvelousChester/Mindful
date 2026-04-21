@@ -1,12 +1,16 @@
 {
+  "buildCommand": "pnpm install && pnpm --filter shared build && pnpm --filter backend build && pnpm --filter frontend build",
+  "outputDirectory": "apps/frontend/dist",
+  "installCommand": "pnpm install",
+  "framework": null,
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "apps/backend/src/index.ts"
+      "destination": "/api/index.ts"
     },
     {
       "source": "/(.*)",
-      "destination": "/apps/frontend/index.html"
+      "destination": "/index.html"
     }
   ]
 }

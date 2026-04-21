@@ -9,7 +9,7 @@
 
 import { useAuthStore } from '../features/auth/store'
 
-const BASE_URL = import.meta.env.VITE_API_URL as string;
+const BASE_URL = (import.meta.env.VITE_API_URL as string) ?? '';
 
 /**
  * Function: apiFetch

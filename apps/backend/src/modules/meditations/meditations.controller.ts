@@ -24,11 +24,26 @@ interface MeditationFiltersResponse {
   languages: NamedCount[];
 }
 
+/**
+ * Function: normalizeLanguage
+ * Description: Normalizes a language string by trimming whitespace and returning 'Unknown' for empty values.
+ * Params:
+ * - language: The language string to normalize.
+ * Returns: The normalized language string or 'Unknown' if empty.
+ */
 function normalizeLanguage(language: string | null | undefined): string {
   const value = (language ?? '').trim();
   return value.length > 0 ? value : 'Unknown';
 }
 
+/**
+ * Function: applyTrackFilters
+ * Description: Applies search, language, and category filters to a Supabase query.
+ * Params:
+ * - query: The Supabase query builder instance.
+ * - opts: Filter options including search string, languages, and category track IDs.
+ * Returns: The filtered query builder instance.
+ */
 function applyTrackFilters<T extends { ilike: Function; in: Function }>(
   query: T,
   opts: { search?: string; languages: string[]; trackIdsForCategory: string[] | null },
@@ -50,6 +65,13 @@ function applyTrackFilters<T extends { ilike: Function; in: Function }>(
   return scopedQuery;
 }
 
+/**
+ * Function: resolveTrackIdsForCategory
+ * Description: Resolves track IDs associated with a given category name.
+ * Params:
+ * - category: The category name to look up.
+ * Returns: An array of track IDs or null if no category specified.
+ */
 async function resolveTrackIdsForCategory(
   category: string | undefined,
 ): Promise<string[] | null> {

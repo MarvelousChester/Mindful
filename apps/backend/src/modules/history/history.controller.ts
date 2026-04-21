@@ -1,7 +1,7 @@
 /**
  * @filename history.controller.ts
- * @date 2026-04-16
- * @author Jasmine Kaur
+ * @date 2026-04-20
+ * @author Karandeep Sandhu
  * @fileoverview Controller for listening history endpoints
  * @version 1.0.0
  */
@@ -34,11 +34,25 @@ function extractToken(req: Request): string | null {
   return header.slice(7);
 }
 
+/**
+ * Function: normalizeLanguage
+ * Description: Normalizes a language string by trimming whitespace and returning 'Unknown' for empty values.
+ * Params:
+ * - language: The language string to normalize.
+ * Returns: The normalized language string or 'Unknown' if empty.
+ */
 function normalizeLanguage(language: string | null | undefined): string {
   const value = (language ?? '').trim();
   return value.length > 0 ? value : 'Unknown';
 }
 
+/**
+ * Function: resolveTrackIdsForCategory
+ * Description: Resolves track IDs associated with a given category name for history filtering.
+ * Params:
+ * - category: The category name to look up.
+ * Returns: An array of track IDs or null if no category specified.
+ */
 async function resolveTrackIdsForCategory(
   category: string | undefined,
 ): Promise<string[] | null> {
@@ -62,6 +76,13 @@ async function resolveTrackIdsForCategory(
   return trackCategoriesData?.map((row: { track_id: string }) => row.track_id) || [];
 }
 
+/**
+ * Function: resolveFilteredTrackIds
+ * Description: Resolves track IDs that match the given filter criteria for history queries.
+ * Params:
+ * - opts: Filter options including category, languages, and search string.
+ * Returns: An array of matching track IDs or null if no filters applied.
+ */
 async function resolveFilteredTrackIds(
   opts: { category?: string; languages: string[]; search?: string },
 ): Promise<string[] | null> {

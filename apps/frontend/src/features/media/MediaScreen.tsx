@@ -1,3 +1,11 @@
+/**
+ * @filename MediaScreen.tsx
+ * @date 2026-03-29
+ * @author Karandeep Sandhu
+ * @fileoverview Main media screen with meditation library and listening history
+ * @version 1.0.0
+ */
+
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router'
 import { AppHeader } from '../../components/AppHeader'
@@ -44,11 +52,25 @@ interface FilterResponse {
   success: boolean
 }
 
+/**
+ * Function: normalizeLanguage
+ * Description: Normalizes a language string by trimming and defaulting to 'Unknown' if empty.
+ * Params:
+ * - language: The language string to normalize.
+ * Returns: The normalized language string.
+ */
 function normalizeLanguage(language: string): string {
   const value = language.trim()
   return value.length > 0 ? value : 'Unknown'
 }
 
+/**
+ * Function: mapToTrack
+ * Description: Maps a meditation API item to the Track type used by the UI.
+ * Params:
+ * - item: The API response item to transform.
+ * Returns: A Track object.
+ */
 function mapToTrack(item: MeditationApiItem): Track {
   return {
     id: item.id,
@@ -62,16 +84,37 @@ function mapToTrack(item: MeditationApiItem): Track {
   }
 }
 
+/**
+ * Function: parsePositivePage
+ * Description: Parses a page number from query params, defaulting to 1 for invalid values.
+ * Params:
+ * - rawPage: The raw page value from URL params.
+ * Returns: A positive integer page number.
+ */
 function parsePositivePage(rawPage: string | null): number {
   if (!rawPage) return 1
   const parsed = Number(rawPage)
   return Number.isInteger(parsed) && parsed > 0 ? parsed : 1
 }
 
+/**
+ * Function: parseView
+ * Description: Parses the view mode from URL params, defaulting to library.
+ * Params:
+ * - rawView: The raw view value from URL params.
+ * Returns: The validated View type.
+ */
 function parseView(rawView: string | null): View {
   return rawView === 'history' ? 'history' : DEFAULT_VIEW
 }
 
+/**
+ * Function: buildTrackQuery
+ * Description: Builds a query string for track API requests from filter parameters.
+ * Params:
+ * - params: Object containing category, languages, limit, page, and search.
+ * Returns: A URL-encoded query string.
+ */
 function buildTrackQuery(params: {
   category: string | null
   languages: string[]
@@ -93,6 +136,13 @@ function buildTrackQuery(params: {
   return query.toString()
 }
 
+/**
+ * Function: createSkeletonCards
+ * Description: Creates skeleton loading placeholders for track cards.
+ * Params:
+ * - count: The number of skeleton cards to create.
+ * Returns: An array of JSX skeleton elements.
+ */
 function createSkeletonCards(count: number) {
   return Array.from({ length: count }, (_, index) => (
     <div
@@ -109,6 +159,11 @@ function createSkeletonCards(count: number) {
   ))
 }
 
+/**
+ * Function: MediaScreen
+ * Description: Main media screen component displaying meditation library and listening history.
+ * Returns: JSX element with track listing, filters, and media player.
+ */
 export const MediaScreen = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const searchParamString = searchParams.toString()
@@ -331,22 +386,20 @@ export const MediaScreen = () => {
           <div className="inline-flex bg-white rounded-2xl shadow-sm p-1 gap-1">
             <button
               onClick={() => handleViewChange('library')}
-              className={`flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-medium transition-all ${
-                view === 'library'
-                  ? 'bg-primary text-slate-800 shadow-sm'
-                  : 'text-slate-500 hover:text-slate-700'
-              }`}
+              className={`flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-medium transition-all ${view === 'library'
+                ? 'bg-primary text-slate-800 shadow-sm'
+                : 'text-slate-500 hover:text-slate-700'
+                }`}
             >
               <span className="material-icons text-base">library_music</span>
               Library
             </button>
             <button
               onClick={() => handleViewChange('history')}
-              className={`flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-medium transition-all ${
-                view === 'history'
-                  ? 'bg-primary text-slate-800 shadow-sm'
-                  : 'text-slate-500 hover:text-slate-700'
-              }`}
+              className={`flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-medium transition-all ${view === 'history'
+                ? 'bg-primary text-slate-800 shadow-sm'
+                : 'text-slate-500 hover:text-slate-700'
+                }`}
             >
               <span className="material-icons text-base">history</span>
               History

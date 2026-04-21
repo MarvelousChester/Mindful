@@ -1,3 +1,11 @@
+/**
+ * @filename CategoryFilter.tsx
+ * @date 2026-04-20
+ * @author Karandeep Sandhu
+ * @fileoverview Filter component for language and category selection
+ * @version 1.0.0
+ */
+
 import { useMemo, useState } from 'react'
 
 export interface FilterOption {
@@ -102,11 +110,10 @@ export function CategoryFilter({
             onClick={() => handleCategoryToggle(tag.name)}
             disabled={disabled}
             aria-pressed={selectedCategory === tag.name}
-            className={`rounded-xl border px-3 py-2 text-left text-sm transition-colors ${
-              selectedCategory === tag.name
-                ? 'border-primary/60 bg-primary/15 text-slate-900'
-                : 'border-slate-200 text-slate-600 hover:border-slate-300 hover:text-slate-900'
-            } ${disabled ? 'opacity-60' : ''}`}
+            className={`rounded-xl border px-3 py-2 text-left text-sm transition-colors ${selectedCategory === tag.name
+              ? 'border-primary/60 bg-primary/15 text-slate-900'
+              : 'border-slate-200 text-slate-600 hover:border-slate-300 hover:text-slate-900'
+              } ${disabled ? 'opacity-60' : ''}`}
           >
             {tag.name}
           </button>

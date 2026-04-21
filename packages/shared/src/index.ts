@@ -143,3 +143,4 @@ export interface ApiResponse<T> {
 }
 
 export * from './schemas/auth.js';
+export * from './schemas/meditations.js';

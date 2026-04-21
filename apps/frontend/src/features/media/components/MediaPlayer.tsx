@@ -1,17 +1,57 @@
 import { useEffect, useRef, useState } from "react";
 import type { Track } from "../types";
+import { authFetch } from "../../../lib/api";
 
 interface MediaPlayerProps {
   track: Track | null;
+  onHistoryRecorded?: () => void;
 }
 
-export function MediaPlayer({ track }: MediaPlayerProps) {
+export function MediaPlayer({ track, onHistoryRecorded }: MediaPlayerProps) {
   if (!track) return null;
 
-  return <MediaPlayerContent key={track.audioUrl ?? track.id} track={track} />;
+  return (
+    <MediaPlayerContent
+      key={track.audioUrl ?? track.id}
+      track={track}
+      onHistoryRecorded={onHistoryRecorded}
+    />
+  );
 }
 
-function MediaPlayerContent({ track }: { track: Track }) {
+
+/**
+ * Function: postHistory
+ * Description: Fires a fire-and-forget POST to /api/history with the track id
+ *   and how many seconds the user listened.
+ * Params:
+ * - meditationId: UUID of the track that was played
+ * - listenedDuration: Integer seconds the user actually listened
+ * - onSuccess: Optional callback invoked after a successful write
+ * Returns: void
+ */
+async function postHistory(
+  meditationId: string,
+  listenedDuration: number,
+  onSuccess?: () => void,
+) {
+  try {
+    await authFetch("/api/history", {
+      method: "POST",
+      body: JSON.stringify({ meditationId, listenedDuration }),
+    });
+    onSuccess?.();
+  } catch (err) {
+    console.warn("[MediaPlayer] Failed to record history:", err);
+  }
+}
+
+interface MediaPlayerContentProps {
+  track: Track;
+  onHistoryRecorded?: () => void;
+}
+
+function MediaPlayerContent({ track, onHistoryRecorded }: MediaPlayerContentProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.67);
@@ -19,13 +59,32 @@ function MediaPlayerContent({ track }: { track: Track }) {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
+  const currentTimeRef = useRef(0);
+  const historyPostedRef = useRef(false);
+
   useEffect(() => {
     const audio = new Audio(track.audioUrl);
     audioRef.current = audio;
 
-    const onTimeUpdate = () => setCurrentTime(audio.currentTime);
+    const onTimeUpdate = () => {
+      currentTimeRef.current = audio.currentTime;
+      setCurrentTime(audio.currentTime);
+    };
     const onLoadedMetadata = () => setDuration(audio.duration);
-    const onEnded = () => setIsPlaying(false);
+
+    /**
+     * onEnded fires when the track plays to completion.
+     * Record the full listened duration and notify the parent.
+     */
+    const onEnded = () => {
+      setIsPlaying(false);
+      historyPostedRef.current = true;
+      void postHistory(
+        track.id,
+        Math.floor(audio.duration || 0),
+        onHistoryRecorded,
+      );
+    };
 
     audio.addEventListener("timeupdate", onTimeUpdate);
     audio.addEventListener("loadedmetadata", onLoadedMetadata);
@@ -36,9 +95,14 @@ function MediaPlayerContent({ track }: { track: Track }) {
       audio.removeEventListener("timeupdate", onTimeUpdate);
       audio.removeEventListener("loadedmetadata", onLoadedMetadata);
       audio.removeEventListener("ended", onEnded);
+      const elapsed = Math.floor(currentTimeRef.current);
+      if (elapsed >= 1 && !historyPostedRef.current) {
+        void postHistory(track.id, elapsed, onHistoryRecorded);
+      }
+
       audioRef.current = null;
     };
-  }, [track.audioUrl]);
+  }, [track.audioUrl, track.id, onHistoryRecorded]);
 
   useEffect(() => {
     if (!audioRef.current) return;
@@ -120,9 +184,13 @@ function MediaPlayerContent({ track }: { track: Track }) {
     >
       <div className="flex items-center gap-4 w-full md:w-1/3">
         <div
-          className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center text-slate-700"
+          className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center text-slate-700 overflow-hidden shrink-0"
         >
-          <span className="material-icons">music_note</span>
+          {track.thumbnailUrl ? (
+            <img src={track.thumbnailUrl} alt={track.title} className="w-full h-full object-cover" />
+          ) : (
+            <span className="material-icons">music_note</span>
+          )}
         </div>
         <div>
           <h4 className="font-semibold text-sm leading-tight">

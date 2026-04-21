@@ -23,9 +23,9 @@ export function CategoryFilter({ categories, selected, onChange }: CategoryFilte
    */
   function handleToggle(value: string) {
     if (selected.includes(value)) {
-      onChange(selected.filter((v) => v !== value))
+      onChange([])
     } else {
-      onChange([...selected, value])
+      onChange([value])
     }
   }
 
@@ -35,9 +35,9 @@ export function CategoryFilter({ categories, selected, onChange }: CategoryFilte
         <label key={tag} className="flex items-center gap-3 cursor-pointer group">
           <input
             type="checkbox"
-            value={tag.toLowerCase()}
-            checked={selected.includes(tag.toLowerCase())}
-            onChange={() => handleToggle(tag.toLowerCase())}
+            value={tag}
+            checked={selected.includes(tag)}
+            onChange={() => handleToggle(tag)}
             className="accent-primary w-4 h-4 cursor-pointer"
           />
           <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">

@@ -1,3 +1,11 @@
+/**
+ * @filename MediaPlayer.tsx
+ * @date 2026-03-24
+ * @author Karandeep Sandhu & Jasmine Kaur
+ * @fileoverview Audio player component with playback controls and history tracking
+ * @version 1.0.0
+ */
+
 import { useEffect, useRef, useState } from "react";
 import type { Track } from "../types";
 import { authFetch } from "../../../lib/api";
@@ -8,6 +16,15 @@ interface MediaPlayerProps {
   onHistoryRecorded?: () => void;
 }
 
+/**
+ * Function: MediaPlayer
+ * Description: Wrapper component that renders the media player for a selected track.
+ * Params:
+ * - track: The track to play or null if no selection.
+ * - autoPlayRequestId: Optional ID to trigger autoplay when changed.
+ * - onHistoryRecorded: Optional callback when listening history is recorded.
+ * Returns: JSX element or null if no track selected.
+ */
 export function MediaPlayer({
   track,
   autoPlayRequestId,
@@ -58,6 +75,15 @@ interface MediaPlayerContentProps {
   onHistoryRecorded?: () => void;
 }
 
+/**
+ * Function: MediaPlayerContent
+ * Description: Inner component that handles audio playback, controls, and history tracking.
+ * Params:
+ * - track: The track to play.
+ * - autoPlayRequestId: Optional ID to trigger autoplay when changed.
+ * - onHistoryRecorded: Optional callback when listening history is recorded.
+ * Returns: JSX element with audio controls.
+ */
 function MediaPlayerContent({
   track,
   autoPlayRequestId,
@@ -205,6 +231,13 @@ function MediaPlayerContent({
     setCurrentTime(newTime);
   }
 
+  /**
+   * Function: handleSkip
+   * Description: Skips the audio playback forward or backward by the specified seconds.
+   * Params:
+   * - offsetSeconds: The number of seconds to skip (positive or negative).
+   * Returns: void
+   */
   function handleSkip(offsetSeconds: number) {
     if (!audioRef.current) return;
     const maxTime = Number.isFinite(audioRef.current.duration) ? audioRef.current.duration : Infinity;

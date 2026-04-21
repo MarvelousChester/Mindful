@@ -1,3 +1,11 @@
+/**
+ * @filename types.ts
+ * @date 2026-03-29
+ * @author Karandeep Sandhu
+ * @fileoverview Type definitions for meditation tracks and playback state
+ * @version 1.0.0
+ */
+
 export interface Track {
   id: string;
   title: string;

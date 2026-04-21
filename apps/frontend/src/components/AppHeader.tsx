@@ -1,3 +1,11 @@
+/**
+ * @filename AppHeader.tsx
+ * @date 2026-04-16
+ * @author Jasmine Kaur
+ * @fileoverview Top navigation header with user profile dropdown
+ * @version 1.0.0
+ */
+
 import { useState, useRef, useEffect } from 'react'
 import { CircleUserRound, Leaf, LogOut, ChevronDown } from 'lucide-react'
 import { useAuthStore } from '../features/auth/store'

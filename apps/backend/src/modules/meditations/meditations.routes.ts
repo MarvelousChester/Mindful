@@ -7,12 +7,15 @@
  */
 
 import { Router, type Router as ExpressRouter } from 'express';
-import { getMeditations, getMeditationById } from './meditations.controller.js';
+import { getMeditationById, getMeditationFilters, getMeditations } from './meditations.controller.js';
 
 const meditationsRouter: ExpressRouter = Router();
 
 // GET /api/meditations          → list all (with optional ?search= ?category= ?page= ?limit=)
 meditationsRouter.get('/', getMeditations);
+
+// GET /api/meditations/filters  → list available categories/languages with counts
+meditationsRouter.get('/filters', getMeditationFilters);
 
 // GET /api/meditations/:id      → single meditation by UUID
 meditationsRouter.get('/:id', getMeditationById);

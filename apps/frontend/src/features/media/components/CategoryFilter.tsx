@@ -1,12 +1,26 @@
+/**
+ * @filename CategoryFilter.tsx
+ * @date 2026-04-20
+ * @author Karandeep Sandhu
+ * @fileoverview Filter component for language and category selection
+ * @version 1.0.0
+ */
+
 import { useMemo, useState } from 'react'
 
+export interface FilterOption {
+  count: number
+  name: string
+}
+
 interface CategoryFilterProps {
-  categories: string[]
-  selected: string[]
-  onChange: (selected: string[]) => void
-  languages: string[]
+  categories: FilterOption[]
+  selectedCategory: string | null
+  onCategoryChange: (selected: string | null) => void
+  languages: FilterOption[]
   selectedLanguages: string[]
   onLanguageChange: (selected: string[]) => void
+  disabled?: boolean
 }
 
 /**
@@ -20,33 +34,26 @@ interface CategoryFilterProps {
  */
 export function CategoryFilter({
   categories,
-  selected,
-  onChange,
+  selectedCategory,
+  onCategoryChange,
   languages,
   selectedLanguages,
   onLanguageChange,
+  disabled = false,
 }: CategoryFilterProps) {
   const [showAllLanguages, setShowAllLanguages] = useState(false)
   const topLanguages = useMemo(() => languages.slice(0, 5), [languages])
   const visibleLanguages = useMemo(() => {
     if (showAllLanguages || languages.length <= 5) return languages
-    const pinnedSelected = selectedLanguages.filter((language) => !topLanguages.includes(language))
+    const topLanguageNames = new Set(topLanguages.map((language) => language.name))
+    const pinnedSelected = languages.filter(
+      (language) => selectedLanguages.includes(language.name) && !topLanguageNames.has(language.name),
+    )
     return [...topLanguages, ...pinnedSelected]
   }, [showAllLanguages, languages, selectedLanguages, topLanguages])
 
-  /**
-   * Function: handleToggle
-   * Description: Adds or removes a category from the selected list.
-   * Params:
-   * - value: the category value to toggle
-   * Returns: void
-   */
-  function handleToggle(value: string) {
-    if (selected.includes(value)) {
-      onChange([])
-    } else {
-      onChange([value])
-    }
+  function handleCategoryToggle(value: string) {
+    onCategoryChange(selectedCategory === value ? null : value)
   }
 
   function handleLanguageToggle(value: string) {
@@ -62,16 +69,22 @@ export function CategoryFilter({
       <div className="flex flex-col gap-3">
         <h3 className="text-xs font-bold uppercase tracking-wide text-slate-700">Language</h3>
         {visibleLanguages.map((language) => (
-          <label key={language} className="flex items-center gap-3 cursor-pointer group">
-            <input
-              type="checkbox"
-              value={language}
-              checked={selectedLanguages.includes(language)}
-              onChange={() => handleLanguageToggle(language)}
-              className="accent-primary w-4 h-4 cursor-pointer"
-            />
-            <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">
-              {language}
+          <label
+            key={language.name}
+            className={`flex items-center gap-3 cursor-pointer group ${disabled ? 'opacity-60' : ''}`}
+          >
+            <span className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                value={language.name}
+                checked={selectedLanguages.includes(language.name)}
+                onChange={() => handleLanguageToggle(language.name)}
+                disabled={disabled}
+                className="accent-primary w-4 h-4 cursor-pointer"
+              />
+              <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">
+                {language.name}
+              </span>
             </span>
           </label>
         ))}
@@ -91,18 +104,19 @@ export function CategoryFilter({
       <div className="flex flex-col gap-3">
         <h3 className="text-xs font-bold uppercase tracking-wide text-slate-700">Categories</h3>
         {categories.map((tag) => (
-          <label key={tag} className="flex items-center gap-3 cursor-pointer group">
-            <input
-              type="checkbox"
-              value={tag}
-              checked={selected.includes(tag)}
-              onChange={() => handleToggle(tag)}
-              className="accent-primary w-4 h-4 cursor-pointer"
-            />
-            <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">
-              {tag}
-            </span>
-          </label>
+          <button
+            key={tag.name}
+            type="button"
+            onClick={() => handleCategoryToggle(tag.name)}
+            disabled={disabled}
+            aria-pressed={selectedCategory === tag.name}
+            className={`rounded-xl border px-3 py-2 text-left text-sm transition-colors ${selectedCategory === tag.name
+              ? 'border-primary/60 bg-primary/15 text-slate-900'
+              : 'border-slate-200 text-slate-600 hover:border-slate-300 hover:text-slate-900'
+              } ${disabled ? 'opacity-60' : ''}`}
+          >
+            {tag.name}
+          </button>
         ))}
       </div>
     </div>

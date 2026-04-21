@@ -1,3 +1,11 @@
+/**
+ * @filename TrackCard.tsx
+ * @date 2026-03-29
+ * @author Karandeep Sandhu
+ * @fileoverview Card component for displaying meditation track information
+ * @version 1.0.0
+ */
+
 import type { Track } from '../types'
 
 interface TrackCardProps {
@@ -17,6 +25,13 @@ function formatDuration(seconds: number): string {
   return `${m} min`
 }
 
+/**
+ * Function: getLanguageLabel
+ * Description: Returns a normalized language label, defaulting to 'Unknown' for empty strings.
+ * Params:
+ * - language: The raw language string from the track data.
+ * Returns: The normalized language label.
+ */
 function getLanguageLabel(language: string): string {
   const value = language.trim()
   return value.length > 0 ? value : 'Unknown'

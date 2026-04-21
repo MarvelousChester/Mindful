@@ -13,14 +13,6 @@ import { env } from '../config/env.js';
 
 /**
  * Function: createSupabaseServerClient
- * Description: Creates a backend Supabase client configured for stateless server-side authentication calls.
- * Params:
- * - None.
- * Returns:
- * - A Supabase client instance configured with the project URL and anonymous key.
- */
-/**
- * Function: createSupabaseServerClient
  * Description: Creates a backend Supabase client. When userToken is supplied the
  *   JWT is forwarded as the global Authorization header so RLS policies that
  *   rely on auth.uid() work correctly without a service-role key.

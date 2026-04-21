@@ -101,7 +101,7 @@ export const AuthScreen = ({ mode }: AuthScreenProps) => {
   }
 
   if (accessToken && user) {
-    return <Navigate replace to="/app" />
+    return <Navigate replace to="/" />
   }
 
   const content = authCopy[mode]
@@ -163,7 +163,7 @@ export const AuthScreen = ({ mode }: AuthScreenProps) => {
           refreshToken: response.data.refreshToken,
           user: response.data.user,
         })
-        navigate('/app', { replace: true })
+        navigate('/', { replace: true })
       }
 
       setFeedback({
@@ -204,7 +204,7 @@ export const AuthScreen = ({ mode }: AuthScreenProps) => {
           refreshToken: response.data.refreshToken,
           user: response.data.user,
         })
-        navigate('/app', { replace: true })
+        navigate('/', { replace: true })
       }
 
       setFeedback({

@@ -89,6 +89,7 @@ function MediaPlayerContent({
   autoPlayRequestId,
   onHistoryRecorded,
 }: MediaPlayerContentProps) {
+  const MIN_HISTORY_SECONDS = 3;
   const SEEK_STEP_SECONDS = 10;
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -98,7 +99,9 @@ function MediaPlayerContent({
   const [duration, setDuration] = useState(0);
 
   const currentTimeRef = useRef(0);
-  const historyPostedRef = useRef(false);
+  const lastQueuedDurationRef = useRef(0);
+  const lastSavedDurationRef = useRef(0);
+  const pendingWriteRef = useRef<Promise<void>>(Promise.resolve());
   const onHistoryRecordedRef = useRef(onHistoryRecorded);
 
   useEffect(() => {
@@ -106,12 +109,35 @@ function MediaPlayerContent({
   }, [onHistoryRecorded]);
 
   useEffect(() => {
+    currentTimeRef.current = 0;
+    lastQueuedDurationRef.current = 0;
+    lastSavedDurationRef.current = 0;
+    pendingWriteRef.current = Promise.resolve();
+
     const audio = new Audio(track.audioUrl);
     audioRef.current = audio;
+
+    function queueHistoryWrite(duration: number) {
+      const nextDuration = Math.floor(duration);
+      if (nextDuration < MIN_HISTORY_SECONDS) return;
+      if (nextDuration <= lastQueuedDurationRef.current) return;
+
+      lastQueuedDurationRef.current = nextDuration;
+      pendingWriteRef.current = pendingWriteRef.current
+        .catch(() => undefined)
+        .then(async () => {
+          if (nextDuration <= lastSavedDurationRef.current) return;
+          await postHistory(track.id, nextDuration, () => {
+            lastSavedDurationRef.current = nextDuration;
+            onHistoryRecordedRef.current?.();
+          });
+        });
+    }
 
     const onTimeUpdate = () => {
       currentTimeRef.current = audio.currentTime;
       setCurrentTime(audio.currentTime);
+      queueHistoryWrite(audio.currentTime);
     };
     const onLoadedMetadata = () => setDuration(audio.duration);
     const onPlay = () => setIsPlaying(true);
@@ -122,13 +148,8 @@ function MediaPlayerContent({
      * Record the full listened duration and notify the parent.
      */
     const onEnded = () => {
+      queueHistoryWrite(audio.duration || currentTimeRef.current);
       setIsPlaying(false);
-      historyPostedRef.current = true;
-      void postHistory(
-        track.id,
-        Math.floor(audio.duration || 0),
-        onHistoryRecordedRef.current,
-      );
     };
 
     audio.addEventListener("timeupdate", onTimeUpdate);
@@ -144,14 +165,11 @@ function MediaPlayerContent({
       audio.removeEventListener("ended", onEnded);
       audio.removeEventListener("play", onPlay);
       audio.removeEventListener("pause", onPause);
-      const elapsed = Math.floor(currentTimeRef.current);
-      if (elapsed >= 1 && !historyPostedRef.current) {
-        void postHistory(track.id, elapsed, onHistoryRecordedRef.current);
-      }
+      queueHistoryWrite(currentTimeRef.current);
 
       audioRef.current = null;
     };
-  }, [track.audioUrl, track.id]);
+  }, [MIN_HISTORY_SECONDS, track.audioUrl, track.id]);
 
   useEffect(() => {
     if (!audioRef.current) return;

@@ -369,9 +369,6 @@ function MediaPlayerContent({
             ></div>
           </div>
         </div>
-        <button className="text-slate-400 hover:text-primary transition-colors">
-          <span className="material-icons">queue_music</span>
-        </button>
       </div>
     </div>
   );

@@ -99,6 +99,8 @@ function MediaPlayerContent({
   const [duration, setDuration] = useState(0);
 
   const currentTimeRef = useRef(0);
+  const hasCrossedHistoryThresholdRef = useRef(false);
+  const hasQueuedFinalHistoryRef = useRef(false);
   const lastQueuedDurationRef = useRef(0);
   const lastSavedDurationRef = useRef(0);
   const pendingWriteRef = useRef<Promise<void>>(Promise.resolve());
@@ -110,6 +112,8 @@ function MediaPlayerContent({
 
   useEffect(() => {
     currentTimeRef.current = 0;
+    hasCrossedHistoryThresholdRef.current = false;
+    hasQueuedFinalHistoryRef.current = false;
     lastQueuedDurationRef.current = 0;
     lastSavedDurationRef.current = 0;
     pendingWriteRef.current = Promise.resolve();
@@ -117,16 +121,17 @@ function MediaPlayerContent({
     const audio = new Audio(track.audioUrl);
     audioRef.current = audio;
 
-    function queueHistoryWrite(duration: number) {
+    function queueHistoryWrite(duration: number, options?: { force?: boolean }) {
+      const force = options?.force ?? false;
       const nextDuration = Math.floor(duration);
       if (nextDuration < MIN_HISTORY_SECONDS) return;
-      if (nextDuration <= lastQueuedDurationRef.current) return;
+      if (!force && nextDuration <= lastQueuedDurationRef.current) return;
 
       lastQueuedDurationRef.current = nextDuration;
       pendingWriteRef.current = pendingWriteRef.current
         .catch(() => undefined)
         .then(async () => {
-          if (nextDuration <= lastSavedDurationRef.current) return;
+          if (!force && nextDuration <= lastSavedDurationRef.current) return;
           await postHistory(track.id, nextDuration, () => {
             lastSavedDurationRef.current = nextDuration;
             onHistoryRecordedRef.current?.();
@@ -134,10 +139,24 @@ function MediaPlayerContent({
         });
     }
 
+    function queueFinalHistoryWrite(duration: number) {
+      if (!hasCrossedHistoryThresholdRef.current) return;
+      if (hasQueuedFinalHistoryRef.current) return;
+
+      hasQueuedFinalHistoryRef.current = true;
+      queueHistoryWrite(duration, { force: true });
+    }
+
     const onTimeUpdate = () => {
       currentTimeRef.current = audio.currentTime;
       setCurrentTime(audio.currentTime);
-      queueHistoryWrite(audio.currentTime);
+      if (
+        !hasCrossedHistoryThresholdRef.current &&
+        audio.currentTime >= MIN_HISTORY_SECONDS
+      ) {
+        hasCrossedHistoryThresholdRef.current = true;
+        queueHistoryWrite(audio.currentTime);
+      }
     };
     const onLoadedMetadata = () => setDuration(audio.duration);
     const onPlay = () => setIsPlaying(true);
@@ -148,7 +167,7 @@ function MediaPlayerContent({
      * Record the full listened duration and notify the parent.
      */
     const onEnded = () => {
-      queueHistoryWrite(audio.duration || currentTimeRef.current);
+      queueFinalHistoryWrite(audio.duration || currentTimeRef.current);
       setIsPlaying(false);
     };
 
@@ -165,7 +184,7 @@ function MediaPlayerContent({
       audio.removeEventListener("ended", onEnded);
       audio.removeEventListener("play", onPlay);
       audio.removeEventListener("pause", onPause);
-      queueHistoryWrite(currentTimeRef.current);
+      queueFinalHistoryWrite(currentTimeRef.current);
 
       audioRef.current = null;
     };

@@ -6,7 +6,7 @@
  * @version 1.0.0
  */
 
-import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router'
 import { AppHeader } from '../../components/AppHeader'
 import { CategoryFilter, type FilterOption } from './components/CategoryFilter'
@@ -180,6 +180,7 @@ export const MediaScreen = () => {
   const { currentPage, querySearch, selectedCategory, selectedLanguages, view } = parsedParams
   const requestIdRef = useRef(0)
   const hasLoadedRef = useRef(false)
+  const loadedHistoryFiltersVersionRef = useRef(0)
 
   const [selectedTrack, setSelectedTrack] = useState<Track | null>(null)
   const [autoPlayRequestId, setAutoPlayRequestId] = useState(0)
@@ -198,6 +199,7 @@ export const MediaScreen = () => {
   const [libraryFilters, setLibraryFilters] = useState<FilterResponse['data'] | null>(null)
   const [historyFilters, setHistoryFilters] = useState<FilterResponse['data'] | null>(null)
   const [historyVersion, setHistoryVersion] = useState(0)
+  const [historyFiltersVersion, setHistoryFiltersVersion] = useState(0)
 
   const activeFilters = view === 'library' ? libraryFilters : historyFilters
   const historyRefreshKey = view === 'history' ? historyVersion : 0
@@ -269,19 +271,28 @@ export const MediaScreen = () => {
 
   useEffect(() => {
     if (view === 'library' && libraryFilters) return
-    if (view === 'history' && historyFilters) return
+    if (
+      view === 'history' &&
+      historyFilters &&
+      loadedHistoryFiltersVersionRef.current === historyFiltersVersion
+    ) {
+      return
+    }
 
     const controller = new AbortController()
     const path = view === 'library' ? '/api/meditations/filters' : '/api/history/filters'
     const fetcher = view === 'library' ? apiFetch : authFetch
+    const requestedView = view
+    const requestedHistoryFiltersVersion = historyFiltersVersion
 
     void fetcher<FilterResponse>(path, { signal: controller.signal })
       .then((response) => {
-        if (view === 'library') {
+        if (requestedView === 'library') {
           setLibraryFilters(response.data)
           return
         }
         setHistoryFilters(response.data)
+        loadedHistoryFiltersVersionRef.current = requestedHistoryFiltersVersion
       })
       .catch((error: unknown) => {
         if ((error as Error)?.name === 'AbortError') return
@@ -289,7 +300,7 @@ export const MediaScreen = () => {
       })
 
     return () => controller.abort()
-  }, [historyFilters, libraryFilters, view])
+  }, [historyFilters, historyFiltersVersion, libraryFilters, view])
 
   function updateParams(mutator: (params: URLSearchParams) => void) {
     setSearchParams((current) => {
@@ -347,12 +358,12 @@ export const MediaScreen = () => {
     setAutoPlayRequestId((id) => id + 1)
   }
 
-  const handleHistoryRecorded = () => {
-    setHistoryFilters(null)
+  const handleHistoryRecorded = useCallback(() => {
+    setHistoryFiltersVersion((value) => value + 1)
     if (view === 'history') {
       setHistoryVersion((value) => value + 1)
     }
-  }
+  }, [view])
 
   const availableCategories = useMemo(
     () => (activeFilters?.categories ?? []).slice().sort((a, b) => a.name.localeCompare(b.name)),

@@ -99,6 +99,11 @@ function MediaPlayerContent({
 
   const currentTimeRef = useRef(0);
   const historyPostedRef = useRef(false);
+  const onHistoryRecordedRef = useRef(onHistoryRecorded);
+
+  useEffect(() => {
+    onHistoryRecordedRef.current = onHistoryRecorded;
+  }, [onHistoryRecorded]);
 
   useEffect(() => {
     const audio = new Audio(track.audioUrl);
@@ -122,7 +127,7 @@ function MediaPlayerContent({
       void postHistory(
         track.id,
         Math.floor(audio.duration || 0),
-        onHistoryRecorded,
+        onHistoryRecordedRef.current,
       );
     };
 
@@ -141,12 +146,12 @@ function MediaPlayerContent({
       audio.removeEventListener("pause", onPause);
       const elapsed = Math.floor(currentTimeRef.current);
       if (elapsed >= 1 && !historyPostedRef.current) {
-        void postHistory(track.id, elapsed, onHistoryRecorded);
+        void postHistory(track.id, elapsed, onHistoryRecordedRef.current);
       }
 
       audioRef.current = null;
     };
-  }, [track.audioUrl, track.id, onHistoryRecorded]);
+  }, [track.audioUrl, track.id]);
 
   useEffect(() => {
     if (!audioRef.current) return;

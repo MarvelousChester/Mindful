@@ -2,69 +2,116 @@
 
 A monorepo for the Mindful guided meditation platform, built with React, Express, TypeScript, and managed by pnpm workspaces.
 
-## Prerequisites
+Run it in this order.
 
-- **Node.js** (v20 or later)
-- **pnpm** (v10 or later)
+**Prereqs**
 
-### Install pnpm (if not installed)
+You need:
 
-```bash
-npm install -g pnpm
-```
+- `Node.js` 20+
+- `pnpm` 10+
+- `Docker Desktop`
+- `Supabase CLI`
 
-## Setup
+**1. Install dependencies**
 
-1. Clone the repository
-```bash
-git clone <repository-url>
-cd mindful-app
-```
+From the repo root:
 
-2. Install dependencies
 ```bash
 pnpm install
-```
-
-3. Approve build scripts (one-time setup)
-```bash
 pnpm approve-builds
 ```
 
-## Development
+**2. Start local Supabase**
 
-### Start all services (frontend + backend)
+From the repo root:
+
+```bash
+supabase start
+supabase db reset
+supabase status
+```
+
+What this does:
+
+- `supabase start` boots the local DB/API/auth/storage stack
+- `supabase db reset` applies the migrations in `supabase/migrations/*` and runs `supabase/seed.sql`
+- `supabase/seed.sql` creates a local dev auth user:
+  - email: `dev@mindful.test`
+  - password: `devpassword123`
+
+**3. Create backend env**
+
+Create `apps/backend/.env` with values from `supabase status`:
+
+```env
+NODE_ENV=development
+PORT=3001
+SUPABASE_URL=http://127.0.0.1:54321
+SUPABASE_PUBLISHABLE_KEY=YOUR_LOCAL_ANON_KEY
+```
+
+Use the local Supabase API URL and the `anon key` from `supabase status`.
+
+**4. Seed meditation content**
+
+The DB schema and dev user are not enough by themselves. The track/catalog data is loaded by the script in `supabase/scripts/seed-meditations.ts`.
+
+Create `supabase/scripts/.env`:
+
+```env
+SUPABASE_URL=http://127.0.0.1:54321
+SUPABASE_SERVICE_ROLE_KEY=YOUR_LOCAL_SERVICE_ROLE_KEY
+```
+
+Then run:
+
+```bash
+pnpm --filter backend seed:meditations
+```
+
+This uploads the two school logos to the local `schools` storage bucket and inserts schools, categories, tracks, and track-category links.
+
+**5. Optional frontend env**
+
+You can run without frontend env because Vite proxies `/api` to `http://localhost:3001`.
+
+If you want the login screen’s dev autofill button to work, create `apps/frontend/.env.local`:
+
+```env
+VITE_DEV_EMAIL=dev@mindful.test
+VITE_DEV_PASSWORD=devpassword123
+```
+
+`VITE_API_URL` is optional for local dev here.
+
+**6. Start the app**
+
+From repo root:
+
 ```bash
 pnpm dev
 ```
-- Frontend runs on http://localhost:5173
-- Backend runs on http://localhost:3001
 
-### Start services individually
+That starts:
 
-Frontend only:
-```bash
-pnpm dev:frontend
+- frontend: `http://localhost:5173`
+- backend: `http://localhost:3001`
+
+**7. Use it**
+
+Open `http://localhost:5173` and log in with:
+
+```text
+dev@mindful.test
+devpassword123
 ```
 
-Backend only:
-```bash
-pnpm dev:backend
-```
+Useful local Supabase URLs:
 
-## Build
-
-Build all packages:
-```bash
-pnpm build
-```
-
-## Clean
-
-Remove all node_modules, build outputs, and prune pnpm store:
-```bash
-pnpm clean
-```
+- API: `http://127.0.0.1:54321`
+- DB: `postgresql://postgres:postgres@127.0.0.1:54322/postgres`
+- Studio: `http://127.0.0.1:54323`
 
 ## Project Structure
 
@@ -95,7 +142,3 @@ This project is configured for Vercel deployment:
 
 - Frontend deploys to the root
 - Backend API routes are proxied under `/api/*`
-
-## Environment Variables
-
-Create `.env.local` files in respective app directories for local development (these files are gitignored).
